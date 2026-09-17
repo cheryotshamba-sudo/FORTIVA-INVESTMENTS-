@@ -510,6 +510,10 @@
 
   <script>
 
+    const BACKEND_URL =
+      "https://fortiva-backend-hvqy.onrender.com";
+
+
     const menuBtn =
       document.getElementById("menuBtn");
 
@@ -522,6 +526,12 @@
     const logoutBtn =
       document.getElementById("logoutBtn");
 
+    const balanceElement =
+      document.getElementById("balance");
+
+    const profileLetter =
+      document.getElementById("profileLetter");
+
 
     /*
       DASHBOARD BUTTONS
@@ -531,7 +541,8 @@
       .getElementById("depositBtn")
       .addEventListener("click", function () {
 
-        window.location.href = "deposit.html";
+        window.location.href =
+          "deposit.html";
 
       });
 
@@ -540,7 +551,8 @@
       .getElementById("withdrawBtn")
       .addEventListener("click", function () {
 
-        window.location.href = "withdraw.html";
+        window.location.href =
+          "withdraw.html";
 
       });
 
@@ -549,7 +561,8 @@
       .getElementById("investBtn")
       .addEventListener("click", function () {
 
-        window.location.href = "plans.html";
+        window.location.href =
+          "plans.html";
 
       });
 
@@ -558,79 +571,214 @@
       OPEN MENU
     */
 
-    menuBtn.addEventListener("click", function () {
+    menuBtn.addEventListener(
+      "click",
+      function () {
 
-      sidebar.classList.add("active");
+        sidebar.classList.add(
+          "active"
+        );
 
-      overlay.classList.add("active");
+        overlay.classList.add(
+          "active"
+        );
 
-    });
+      }
+    );
 
 
     /*
       CLOSE MENU
     */
 
-    overlay.addEventListener("click", function () {
+    overlay.addEventListener(
+      "click",
+      function () {
 
-      sidebar.classList.remove("active");
+        sidebar.classList.remove(
+          "active"
+        );
 
-      overlay.classList.remove("active");
+        overlay.classList.remove(
+          "active"
+        );
 
-    });
+      }
+    );
 
 
     /*
       LOGOUT
     */
 
-    logoutBtn.addEventListener("click", function () {
+    logoutBtn.addEventListener(
+      "click",
+      function () {
 
-      localStorage.removeItem("token");
+        localStorage.removeItem(
+          "token"
+        );
 
-      localStorage.removeItem("fortivaToken");
+        localStorage.removeItem(
+          "fortivaToken"
+        );
 
-      localStorage.removeItem("fortivaUser");
+        localStorage.removeItem(
+          "fortivaUser"
+        );
 
-    });
+      }
+    );
 
 
     /*
-      LOAD USER INFORMATION
+      LOAD CURRENT USER FROM DATABASE
     */
 
-    const savedUser =
-      localStorage.getItem("fortivaUser");
+    async function loadCurrentUser() {
 
+      const token =
+        localStorage.getItem(
+          "token"
+        ) ||
+        localStorage.getItem(
+          "fortivaToken"
+        );
 
-    if (savedUser) {
+      if (!token) {
+
+        window.location.href =
+          "login.html";
+
+        return;
+      }
 
       try {
 
-        const user =
-          JSON.parse(savedUser);
+        const response =
+          await fetch(
+            `${BACKEND_URL}/api/me`,
+            {
+              method: "GET",
 
+              headers: {
+                Authorization:
+                  `Bearer ${token}`,
+
+                Accept:
+                  "application/json"
+              }
+            }
+          );
+
+        const data =
+          await response.json();
+
+        console.log(
+          "CURRENT USER:",
+          data
+        );
+
+        if (!response.ok) {
+
+          localStorage.removeItem(
+            "token"
+          );
+
+          localStorage.removeItem(
+            "fortivaToken"
+          );
+
+          localStorage.removeItem(
+            "fortivaUser"
+          );
+
+          window.location.href =
+            "login.html";
+
+          return;
+        }
+
+        const user =
+          data.user;
+
+        if (!user) {
+          throw new Error(
+            "User data missing"
+          );
+        }
+
+
+        /*
+          UPDATE BALANCE DIRECTLY
+          FROM POSTGRESQL
+        */
+
+        const currentBalance =
+          Number(
+            user.balance || 0
+          );
+
+        balanceElement.textContent =
+          currentBalance.toFixed(2);
+
+
+        /*
+          UPDATE PROFILE LETTER
+        */
 
         if (user.fullName) {
 
-          document
-            .getElementById("profileLetter")
-            .textContent =
+          profileLetter.textContent =
             user.fullName
               .charAt(0)
               .toUpperCase();
-
         }
+
+
+        /*
+          UPDATE LOCAL USER CACHE
+          SO OTHER PAGES CAN USE
+          THE LATEST USER DATA
+        */
+
+        localStorage.setItem(
+          "fortivaUser",
+          JSON.stringify({
+            id:
+              user.id,
+
+            fullName:
+              user.fullName,
+
+            email:
+              user.email,
+
+            phone:
+              user.phone,
+
+            balance:
+              currentBalance
+          })
+        );
 
       } catch (error) {
 
-        console.log(
-          "Could not load user information"
+        console.error(
+          "Dashboard balance error:",
+          error
         );
 
       }
 
     }
+
+
+    /*
+      LOAD BALANCE WHEN PAGE OPENS
+    */
+
+    loadCurrentUser();
 
   </script>
 
