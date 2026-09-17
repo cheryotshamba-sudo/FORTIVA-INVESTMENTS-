@@ -103,6 +103,10 @@
       cursor: pointer;
     }
 
+    .button:active {
+      transform: scale(0.98);
+    }
+
     .button:disabled {
       opacity: 0.6;
       cursor: not-allowed;
@@ -190,7 +194,8 @@
       <button
         type="button"
         class="button"
-        id="continueBtn">
+        id="continueBtn"
+        onclick="depositButtonClicked()">
         Deposit Funds
       </button>
 
@@ -212,26 +217,22 @@
       "https://fortiva-backend-hvqy.onrender.com";
 
 
-    const continueBtn =
-      document.getElementById("continueBtn");
-
-    const message =
-      document.getElementById("message");
-
-
     function showMessage(text, type) {
+
+      const message =
+        document.getElementById("message");
 
       message.textContent = text;
 
       message.className =
         "message " + type;
-
     }
 
 
     function normalizePhone(phone) {
 
-      phone = phone.replace(/\s+/g, "");
+      phone =
+        phone.replace(/\s+/g, "");
 
       if (phone.startsWith("+254")) {
         return phone.substring(1);
@@ -253,30 +254,27 @@
     }
 
 
-    continueBtn.addEventListener("click", async function () {
+    async function depositButtonClicked() {
 
-      const amountInput =
-        document.getElementById("amount");
-
-      const methodInput =
-        document.getElementById("method");
-
-      const phoneInput =
-        document.getElementById("phone");
+      const button =
+        document.getElementById("continueBtn");
 
 
       const amount =
-        amountInput.value.trim();
+        document.getElementById("amount")
+          .value
+          .trim();
+
 
       const method =
-        methodInput.value;
+        document.getElementById("method")
+          .value;
+
 
       const enteredPhone =
-        phoneInput.value.trim();
-
-
-      message.className = "message";
-      message.textContent = "";
+        document.getElementById("phone")
+          .value
+          .trim();
 
 
       if (!amount || Number(amount) <= 0) {
@@ -316,11 +314,6 @@
       }
 
 
-      /*
-        Accept both the new token name
-        and the older token name.
-      */
-
       const token =
         localStorage.getItem("token") ||
         localStorage.getItem("fortivaToken");
@@ -337,9 +330,9 @@
       }
 
 
-      continueBtn.disabled = true;
+      button.disabled = true;
 
-      continueBtn.textContent =
+      button.textContent =
         "Initiating payment...";
 
 
@@ -365,23 +358,18 @@
           );
 
 
-        const responseText =
+        const text =
           await response.text();
 
 
         let data = {};
 
         try {
-
-          data =
-            JSON.parse(responseText);
-
+          data = JSON.parse(text);
         } catch {
-
           data = {
-            message: responseText
+            message: text
           };
-
         }
 
 
@@ -398,7 +386,7 @@
 
         showMessage(
           data.message ||
-          "Payment request sent. Please check your phone and complete the M-Pesa payment.",
+          "Payment request sent. Please check your phone.",
           "success"
         );
 
@@ -420,14 +408,14 @@
 
       } finally {
 
-        continueBtn.disabled = false;
+        button.disabled = false;
 
-        continueBtn.textContent =
+        button.textContent =
           "Deposit Funds";
 
       }
 
-    });
+    }
 
   </script>
 
