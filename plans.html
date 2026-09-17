@@ -1,8 +1,11 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fortiva Capital - Investment Plans</title>  <style>
+  <title>Investment Plans - Fortiva Capital</title>
+
+  <style>
     * {
       box-sizing: border-box;
       margin: 0;
@@ -17,623 +20,445 @@
     }
 
     .topbar {
-      height: 78px;
       background: #10233d;
-      border-bottom: 1px solid #1c3a61;
-      display: flex;
-      align-items: center;
-      padding: 0 20px;
+      padding: 18px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
-    .back-btn {
-      border: none;
-      background: transparent;
-      color: white;
-      font-size: 30px;
-      cursor: pointer;
-      margin-right: 15px;
-    }
-
-    .title {
-      font-size: 21px;
-      font-weight: bold;
-    }
-
-    .main {
-      max-width: 650px;
-      margin: auto;
-      padding: 30px 18px 45px;
-    }
-
-    .card {
-      background: #10233d;
-      border: 1px solid #1c3c68;
-      border-radius: 24px;
-      padding: 28px 22px;
-    }
-
-    .heading {
-      font-size: 25px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    .description {
-      color: #9baecc;
-      font-size: 15px;
-      line-height: 1.5;
-      margin-bottom: 25px;
+    .brand {
+      font-size: 20px;
+      font-weight: 700;
     }
 
     .balance-box {
-      background: #102b5b;
-      border-radius: 15px;
-      padding: 20px;
-      margin-bottom: 25px;
+      background: #10233d;
+      padding: 15px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
     .balance-label {
-      color: #9baecc;
-      font-size: 14px;
-      margin-bottom: 8px;
+      color: #aebdce;
+      font-size: 13px;
+      margin-bottom: 4px;
     }
 
     .balance {
-      font-size: 30px;
-      font-weight: bold;
+      font-size: 21px;
+      font-weight: 700;
     }
 
-    .plans {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-bottom: 25px;
+    .container {
+      max-width: 600px;
+      margin: auto;
+      padding: 20px 15px 35px;
     }
 
-    .plan {
-      border: 1px solid #2861bd;
-      background: #0b1b31;
-      color: white;
-      border-radius: 14px;
-      padding: 18px 10px;
-      cursor: pointer;
-      text-align: center;
-      font-size: 16px;
-      font-weight: bold;
-    }
-
-    .plan span {
-      display: block;
-      margin-top: 7px;
-      color: #9baecc;
-      font-size: 13px;
-      font-weight: normal;
-    }
-
-    .plan.selected {
-      background: #2e68e8;
-      border-color: #5ea0ff;
-    }
-
-    .plan.selected span {
+    .back {
+      display: inline-block;
       color: #ffffff;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 22px;
     }
 
-    .plan:active {
-      transform: scale(0.97);
+    h1 {
+      font-size: 27px;
+      margin-bottom: 7px;
     }
 
-    .duration {
-      margin-top: 5px;
-      font-size: 12px;
-      color: #9baecc;
-    }
-
-    .custom-label {
-      display: block;
-      color: #d5dfef;
-      font-size: 15px;
-      font-weight: bold;
-      margin-bottom: 9px;
-    }
-
-    .custom-input {
-      width: 100%;
-      height: 55px;
-      border: 1px solid #2861bd;
-      border-radius: 12px;
-      background: #071426;
-      color: white;
-      padding: 0 15px;
-      font-size: 17px;
-      outline: none;
+    .subtitle {
+      color: #aebdce;
+      font-size: 14px;
+      line-height: 1.5;
       margin-bottom: 20px;
     }
 
-    .custom-input:focus {
-      border-color: #5ea0ff;
+    .plan {
+      background: #10233d;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 13px;
+      padding: 18px;
+      margin-bottom: 13px;
+    }
+
+    .plan-name {
+      font-size: 19px;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    .minimum-amount {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .minimum-label {
+      color: #aebdce;
+      font-size: 12px;
+      margin-bottom: 15px;
+    }
+
+    .details {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .detail {
+      flex: 1;
+    }
+
+    .detail-label {
+      display: block;
+      color: #aebdce;
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    .detail-value {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .description {
+      color: #aebdce;
+      font-size: 13px;
+      line-height: 1.45;
+      margin: 13px 0 15px;
     }
 
     .invest-btn {
       width: 100%;
-      height: 60px;
       border: none;
-      border-radius: 13px;
-      background: #2e68e8;
-      color: white;
-      font-size: 18px;
-      font-weight: bold;
+      border-radius: 8px;
+      padding: 13px;
+      background: #1f6feb;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
       cursor: pointer;
     }
 
-    .invest-btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
+    .invest-btn:active {
+      transform: scale(0.99);
     }
+  </style>
+</head>
 
-    .message {
-      margin-top: 18px;
-      padding: 14px;
-      border-radius: 10px;
-      display: none;
-      font-size: 14px;
-      line-height: 1.5;
-    }
+<body>
 
-    .message.show {
-      display: block;
-    }
-
-    .message.success {
-      background: rgba(0, 166, 81, 0.15);
-      border: 1px solid #00a651;
-      color: #8ff0b8;
-    }
-
-    .message.error {
-      background: rgba(255, 80, 90, 0.12);
-      border: 1px solid #ff737d;
-      color: #ff9da4;
-    }
-
-    @media (max-width: 480px) {
-      .plans {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .main {
-        padding: 25px 16px 35px;
-      }
-
-      .card {
-        padding: 25px 18px;
-      }
-    }
-  </style></head><body>  <header class="topbar">
-    <button
-      class="back-btn"
-      id="backBtn"
-      type="button">
-      ←
-    </button><div class="title">
-  Fortiva Capital
-</div>
-
-  </header>  <main class="main"><section class="card">
-
-  <div class="heading">
-    Investment Plans
-  </div>
-
-  <div class="description">
-    Choose an investment plan that suits your balance.
+  <div class="topbar">
+    <div class="brand">Fortiva Capital</div>
   </div>
 
   <div class="balance-box">
+    <div class="balance-label">Available Balance</div>
+    <div class="balance" id="availableBalance">KES 0.00</div>
+  </div>
 
-    <div class="balance-label">
-      Available Balance
+  <main class="container">
+
+    <a href="dashboard.html" class="back">← Back to Dashboard</a>
+
+    <h1>Investment Plans</h1>
+
+    <p class="subtitle">
+      Choose an investment plan that suits your balance.
+    </p>
+
+    <!-- Fortiva Nova -->
+    <div class="plan">
+      <div class="plan-name">Fortiva Nova</div>
+
+      <div class="minimum-amount">KES 300.00</div>
+      <div class="minimum-label">Minimum investment</div>
+
+      <div class="details">
+        <div class="detail">
+          <span class="detail-label">Expected Return</span>
+          <span class="detail-value">KES 330.00</span>
+        </div>
+
+        <div class="detail">
+          <span class="detail-label">Duration</span>
+          <span class="detail-value">24 Hours</span>
+        </div>
+      </div>
+
+      <div class="description">
+        Entry-level investment option.
+      </div>
+
+      <button class="invest-btn" onclick="openInvestment(300, 'Fortiva Nova', 'Entry-level investment option.')">
+        Invest Now
+      </button>
     </div>
 
-    <div class="balance">
-      KES <span id="balance">0.00</span>
+    <!-- Fortiva Flow -->
+    <div class="plan">
+      <div class="plan-name">Fortiva Flow</div>
+
+      <div class="minimum-amount">KES 600.00</div>
+      <div class="minimum-label">Minimum investment</div>
+
+      <div class="details">
+        <div class="detail">
+          <span class="detail-label">Expected Return</span>
+          <span class="detail-value">KES 660.00</span>
+        </div>
+
+        <div class="detail">
+          <span class="detail-label">Duration</span>
+          <span class="detail-value">24 Hours</span>
+        </div>
+      </div>
+
+      <div class="description">
+        Growth-oriented investment option.
+      </div>
+
+      <button class="invest-btn" onclick="openInvestment(600, 'Fortiva Flow', 'Growth-oriented investment option.')">
+        Invest Now
+      </button>
     </div>
 
-  </div>
+    <!-- Fortiva Apex -->
+    <div class="plan">
+      <div class="plan-name">Fortiva Apex</div>
 
-  <div class="plans">
+      <div class="minimum-amount">KES 900.00</div>
+      <div class="minimum-label">Minimum investment</div>
 
-    <button class="plan" data-amount="300">
-      Fortiva Nova
-      <span>KES 300 → KES 330</span>
-      <div class="duration">24 Hours</div>
-    </button>
+      <div class="details">
+        <div class="detail">
+          <span class="detail-label">Expected Return</span>
+          <span class="detail-value">KES 990.00</span>
+        </div>
 
-    <button class="plan" data-amount="600">
-      Fortiva Flow
-      <span>KES 600 → KES 660</span>
-      <div class="duration">24 Hours</div>
-    </button>
+        <div class="detail">
+          <span class="detail-label">Duration</span>
+          <span class="detail-value">24 Hours</span>
+        </div>
+      </div>
 
-    <button class="plan" data-amount="900">
-      Fortiva Apex
-      <span>KES 900 → KES 990</span>
-      <div class="duration">24 Hours</div>
-    </button>
+      <div class="description">
+        Balanced investment option.
+      </div>
 
-    <button class="plan" data-amount="1500">
-      Fortiva Prime
-      <span>KES 1,500 → KES 1,650</span>
-      <div class="duration">24 Hours</div>
-    </button>
+      <button class="invest-btn" onclick="openInvestment(900, 'Fortiva Apex', 'Balanced investment option.')">
+        Invest Now
+      </button>
+    </div>
 
-    <button class="plan" data-amount="2500">
-      Fortiva Vertex
-      <span>KES 2,500 → KES 2,750</span>
-      <div class="duration">24 Hours</div>
-    </button>
+    <!-- Fortiva Prime -->
+    <div class="plan">
+      <div class="plan-name">Fortiva Prime</div>
 
-    <button class="plan" data-amount="3600">
-      Fortiva Summit
-      <span>KES 3,600 → KES 3,960</span>
-      <div class="duration">24 Hours</div>
-    </button>
+      <div class="minimum-amount">KES 1,500.00</div>
+      <div class="minimum-label">Minimum investment</div>
 
-    <button class="plan" data-amount="5000">
-      Fortiva Sovereign
-      <span>KES 5,000 → KES 5,500</span>
-      <div class="duration">24 Hours</div>
-    </button>
+      <div class="details">
+        <div class="detail">
+          <span class="detail-label">Expected Return</span>
+          <span class="detail-value">KES 1,650.00</span>
+        </div>
 
-    <button class="plan" data-amount="10000">
-      Fortiva Infinity
-      <span>KES 10,000 → KES 11,000</span>
-      <div class="duration">24 Hours</div>
-    </button>
+        <div class="detail">
+          <span class="detail-label">Duration</span>
+          <span class="detail-value">24 Hours</span>
+        </div>
+      </div>
 
-  </div>
+      <div class="description">
+        Premium investment option.
+      </div>
 
-  <label
-    class="custom-label"
-    for="customAmount">
-    Or enter another amount
-  </label>
+      <button class="invest-btn" onclick="openInvestment(1500, 'Fortiva Prime', 'Premium investment option.')">
+        Invest Now
+      </button>
+    </div>
 
-  <input
-    class="custom-input"
-    id="customAmount"
-    type="number"
-    min="1"
-    step="0.01"
-    placeholder="Enter investment amount">
+    <!-- Fortiva Vertex -->
+    <div class="plan">
+      <div class="plan-name">Fortiva Vertex</div>
 
-  <button
-    class="invest-btn"
-    id="investBtn"
-    type="button">
-    Invest Funds
-  </button>
+      <div class="minimum-amount">KES 2,500.00</div>
+      <div class="minimum-label">Minimum investment</div>
 
-  <div
-    class="message"
-    id="message">
-  </div>
+      <div class="details">
+        <div class="detail">
+          <span class="detail-label">Expected Return</span>
+          <span class="detail-value">KES 2,750.00</span>
+        </div>
 
-</section>
+        <div class="detail">
+          <span class="detail-label">Duration</span>
+          <span class="detail-value">24 Hours</span>
+        </div>
+      </div>
 
-  </main>  <script>
+      <div class="description">
+        Advanced investment option.
+      </div>
 
-    const BACKEND_URL =
-      "https://fortiva-backend-hvqy.onrender.com";
+      <button class="invest-btn" onclick="openInvestment(2500, 'Fortiva Vertex', 'Advanced investment option.')">
+        Invest Now
+      </button>
+    </div>
 
-    const balanceElement =
-      document.getElementById("balance");
+    <!-- Fortiva Summit -->
+    <div class="plan">
+      <div class="plan-name">Fortiva Summit</div>
 
-    const customAmount =
-      document.getElementById("customAmount");
+      <div class="minimum-amount">KES 3,600.00</div>
+      <div class="minimum-label">Minimum investment</div>
 
-    const investBtn =
-      document.getElementById("investBtn");
+      <div class="details">
+        <div class="detail">
+          <span class="detail-label">Expected Return</span>
+          <span class="detail-value">KES 3,960.00</span>
+        </div>
 
-    const message =
-      document.getElementById("message");
+        <div class="detail">
+          <span class="detail-label">Duration</span>
+          <span class="detail-value">24 Hours</span>
+        </div>
+      </div>
 
-    const planButtons =
-      document.querySelectorAll(".plan");
+      <div class="description">
+        Advanced multi-market investment option.
+      </div>
 
+      <button class="invest-btn" onclick="openInvestment(3600, 'Fortiva Summit', 'Advanced multi-market investment option.')">
+        Invest Now
+      </button>
+    </div>
 
-    function getToken() {
+    <!-- Fortiva Sovereign -->
+    <div class="plan">
+      <div class="plan-name">Fortiva Sovereign</div>
 
-      return (
-        localStorage.getItem("token") ||
-        localStorage.getItem("fortivaToken")
-      );
+      <div class="minimum-amount">KES 5,000.00</div>
+      <div class="minimum-label">Minimum investment</div>
 
+      <div class="details">
+        <div class="detail">
+          <span class="detail-label">Expected Return</span>
+          <span class="detail-value">KES 5,500.00</span>
+        </div>
+
+        <div class="detail">
+          <span class="detail-label">Duration</span>
+          <span class="detail-value">24 Hours</span>
+        </div>
+      </div>
+
+      <div class="description">
+        Premium multi-market investment option.
+      </div>
+
+      <button class="invest-btn" onclick="openInvestment(5000, 'Fortiva Sovereign', 'Premium multi-market investment option.')">
+        Invest Now
+      </button>
+    </div>
+
+    <!-- Fortiva Infinity -->
+    <div class="plan">
+      <div class="plan-name">Fortiva Infinity</div>
+
+      <div class="minimum-amount">KES 10,000.00</div>
+      <div class="minimum-label">Minimum investment</div>
+
+      <div class="details">
+        <div class="detail">
+          <span class="detail-label">Expected Return</span>
+          <span class="detail-value">KES 11,000.00</span>
+        </div>
+
+        <div class="detail">
+          <span class="detail-label">Duration</span>
+          <span class="detail-value">24 Hours</span>
+        </div>
+      </div>
+
+      <div class="description">
+        Elite investment option.
+      </div>
+
+      <button class="invest-btn" onclick="openInvestment(10000, 'Fortiva Infinity', 'Elite investment option.')">
+        Invest Now
+      </button>
+    </div>
+
+  </main>
+
+  <script>
+    const BACKEND_URL = "https://fortiva-backend-hvqy.onrender.com";
+
+    const token =
+      localStorage.getItem("token") ||
+      localStorage.getItem("fortivaToken");
+
+    function formatKES(amount) {
+      return "KES " + Number(amount).toLocaleString("en-KE", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
     }
 
+    function openInvestment(amount, plan, description) {
+      const url =
+        "investment.html" +
+        "?amount=" + encodeURIComponent(amount) +
+        "&plan=" + encodeURIComponent(plan) +
+        "&description=" + encodeURIComponent(description);
 
-    function showMessage(text, type) {
-
-      message.textContent = text;
-
-      message.className =
-        `message show ${type}`;
-
+      window.location.href = url;
     }
-
 
     async function loadUser() {
-
-      const token = getToken();
-
       if (!token) {
-
-        window.location.href =
-          "login.html";
-
+        window.location.href = "login.html";
         return;
-
       }
 
       try {
-
-        const response =
-          await fetch(
-            `${BACKEND_URL}/api/me`,
-            {
-              method: "GET",
-
-              headers: {
-                Authorization:
-                  `Bearer ${token}`,
-
-                Accept:
-                  "application/json"
-              }
-            }
-          );
-
-        const data =
-          await response.json();
+        const response = await fetch(`${BACKEND_URL}/api/me`, {
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        });
 
         if (!response.ok) {
-
-          localStorage.removeItem("token");
-          localStorage.removeItem("fortivaToken");
-
-          window.location.href =
-            "login.html";
-
+          window.location.href = "login.html";
           return;
-
         }
 
-        const user =
-          data.user;
+        const data = await response.json();
 
         const balance =
-          Number(user.balance || 0);
+          Number(data.balance) ||
+          Number(data.user?.balance) ||
+          0;
 
-        balanceElement.textContent =
-          balance.toFixed(2);
+        document.getElementById("availableBalance").textContent =
+          formatKES(balance);
+
+        localStorage.setItem(
+          "fortivaUser",
+          JSON.stringify(data.user || data)
+        );
 
       } catch (error) {
-
-        console.error(
-          "User loading error:",
-          error
-        );
-
-        showMessage(
-          "Unable to load your account.",
-          "error"
-        );
-
+        console.error("Failed to load balance:", error);
       }
-
     }
 
-
-    planButtons.forEach(
-      function(button) {
-
-        button.addEventListener(
-          "click",
-          function() {
-
-            planButtons.forEach(
-              function(item) {
-                item.classList.remove(
-                  "selected"
-                );
-              }
-            );
-
-            button.classList.add(
-              "selected"
-            );
-
-            customAmount.value =
-              button.dataset.amount;
-
-          }
-        );
-
-      }
-    );
-
-
-    investBtn.addEventListener(
-      "click",
-      async function() {
-
-        const token =
-          getToken();
-
-        if (!token) {
-
-          window.location.href =
-            "login.html";
-
-          return;
-
-        }
-
-        const amount =
-          Number(customAmount.value);
-
-        if (!amount || amount <= 0) {
-
-          showMessage(
-            "Please select or enter an investment amount.",
-            "error"
-          );
-
-          return;
-
-        }
-
-        investBtn.disabled = true;
-
-        investBtn.textContent =
-          "Processing...";
-
-        message.className =
-          "message";
-
-
-        try {
-
-          const response =
-            await fetch(
-              `${BACKEND_URL}/api/invest`,
-              {
-                method: "POST",
-
-                headers: {
-                  "Content-Type":
-                    "application/json",
-
-                  Authorization:
-                    `Bearer ${token}`,
-
-                  Accept:
-                    "application/json"
-                },
-
-                body: JSON.stringify({
-                  amount: amount
-                })
-              }
-            );
-
-
-          const data =
-            await response.json();
-
-
-          if (!response.ok) {
-
-            throw new Error(
-              data.message ||
-              data.error ||
-              "Investment failed."
-            );
-
-          }
-
-
-          if (
-            data.balance !== undefined
-          ) {
-
-            balanceElement.textContent =
-              Number(
-                data.balance
-              ).toFixed(2);
-
-          }
-
-
-          const savedUser =
-            JSON.parse(
-              localStorage.getItem(
-                "fortivaUser"
-              ) || "{}"
-            );
-
-          savedUser.balance =
-            Number(
-              data.balance || 0
-            );
-
-          localStorage.setItem(
-            "fortivaUser",
-            JSON.stringify(
-              savedUser
-            )
-          );
-
-
-          showMessage(
-            `Investment created successfully. Reference: ${data.reference}.`,
-            "success"
-          );
-
-
-          customAmount.value = "";
-
-
-          planButtons.forEach(
-            function(item) {
-              item.classList.remove(
-                "selected"
-              );
-            }
-          );
-
-
-        } catch (error) {
-
-          console.error(
-            "Investment error:",
-            error
-          );
-
-          showMessage(
-            error.message ||
-            "Investment failed.",
-            "error"
-          );
-
-        } finally {
-
-          investBtn.disabled =
-            false;
-
-          investBtn.textContent =
-            "Invest Funds";
-
-        }
-
-      }
-    );
-
-
-    document
-      .getElementById("backBtn")
-      .addEventListener(
-        "click",
-        function() {
-
-          window.location.href =
-            "dashboard.html";
-
-        }
-      );
-
-
     loadUser();
+  </script>
 
-  </script></body>
+</body>
 </html>
