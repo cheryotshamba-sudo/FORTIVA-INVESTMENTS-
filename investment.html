@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Make an Investment - Fortiva Capital</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #071426;
+      color: #ffffff;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      background: #10233d;
+      padding: 18px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .back {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .container {
+      padding: 22px 15px 35px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .heading {
+      margin-bottom: 18px;
+    }
+
+    .heading h1 {
+      font-size: 25px;
+      margin-bottom: 7px;
+    }
+
+    .heading p {
+      color: #aebdce;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .investment-card {
+      background: #10233d;
+      border-radius: 14px;
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .plan-name {
+      font-size: 21px;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    .description {
+      color: #aebdce;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .details {
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+      margin-bottom: 20px;
+    }
+
+    .detail {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      gap: 15px;
+    }
+
+    .detail:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .label {
+      color: #aebdce;
+      font-size: 14px;
+    }
+
+    .value {
+      font-size: 15px;
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .amount-section {
+      margin-top: 20px;
+    }
+
+    .amount-section label {
+      display: block;
+      color: #aebdce;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .amount-input {
+      width: 100%;
+      background: #071426;
+      color: #ffffff;
+      border: 1px solid #29415e;
+      border-radius: 9px;
+      padding: 14px;
+      font-size: 17px;
+      outline: none;
+    }
+
+    .amount-input:focus {
+      border-color: #4c83b6;
+    }
+
+    .balance {
+      color: #aebdce;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+
+    .confirm-btn {
+      width: 100%;
+      border: none;
+      border-radius: 9px;
+      padding: 15px;
+      margin-top: 20px;
+      background: #1f6feb;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .confirm-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .message {
+      display: none;
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .success {
+      background: rgba(40, 167, 69, 0.15);
+      color: #7ee2a8;
+      border: 1px solid rgba(40, 167, 69, 0.3);
+    }
+
+    .error {
+      background: rgba(220, 53, 69, 0.15);
+      color: #ff8d98;
+      border: 1px solid rgba(220, 53, 69, 0.3);
+    }
+
+    .note {
+      margin-top: 18px;
+      color: #93a6ba;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar">
+    <a href="plans.html" class="back">← Back to Investment Plans</a>
+  </div>
+
+  <main class="container">
+
+    <div class="heading">
+      <h1>Make an Investment</h1>
+      <p>Choose your amount and start your investment.</p>
+    </div>
+
+    <div class="investment-card">
+
+      <div class="plan-name" id="planName">Fortiva Nova</div>
+
+      <div class="description" id="planDescription">
+        Entry-level investment option.
+      </div>
+
+      <div class="details">
+
+        <div class="detail">
+          <span class="label">Minimum Investment</span>
+          <span class="value" id="minimumInvestment">KES 300.00</span>
+        </div>
+
+        <div class="detail">
+          <span class="label">Maturity</span>
+          <span class="value">24 Hours</span>
+        </div>
+
+        <div class="detail">
+          <span class="label">Expected Return</span>
+          <span class="value" id="expectedReturn">KES 330.00</span>
+        </div>
+
+      </div>
+
+      <div class="amount-section">
+        <label for="investmentAmount">Investment Amount</label>
+
+        <input
+          type="number"
+          id="investmentAmount"
+          class="amount-input"
+          min="300"
+          step="1"
+          value="300"
+        >
+
+        <div class="balance">
+          Available balance: <span id="availableBalance">KES 0.00</span>
+        </div>
+      </div>
+
+      <button id="confirmButton" class="confirm-btn">
+        Confirm Investment
+      </button>
+
+      <div id="message" class="message"></div>
+
+      <div class="note">
+        Your investment will mature 24 hours after it is created.
+        The investment amount and its stated profit will be processed
+        when the maturity time is reached.
+      </div>
+
+    </div>
+
+  </main>
+
+<script>
+  const BACKEND_URL = "https://fortiva-backend-hvqy.onrender.com";
+
+  const token =
+    localStorage.getItem("token") ||
+    localStorage.getItem("fortivaToken");
+
+  const planName = document.getElementById("planName");
+  const planDescription = document.getElementById("planDescription");
+  const minimumInvestment = document.getElementById("minimumInvestment");
+  const expectedReturn = document.getElementById("expectedReturn");
+  const investmentAmount = document.getElementById("investmentAmount");
+  const availableBalance = document.getElementById("availableBalance");
+  const confirmButton = document.getElementById("confirmButton");
+  const message = document.getElementById("message");
+
+  const params = new URLSearchParams(window.location.search);
+
+  const amountFromUrl = Number(params.get("amount"));
+  const nameFromUrl = params.get("plan");
+  const descriptionFromUrl = params.get("description");
+
+  const plans = {
+    300: {
+      name: "Fortiva Nova",
+      description: "Entry-level investment option."
+    },
+    600: {
+      name: "Fortiva Flow",
+      description: "A simple investment option for growing your balance."
+    },
+    900: {
+      name: "Fortiva Apex",
+      description: "Designed for investors seeking a higher investment level."
+    },
+    1500: {
+      name: "Fortiva Prime",
+      description: "A balanced investment option for growing capital."
+    },
+    2500: {
+      name: "Fortiva Vertex",
+      description: "A higher-tier investment option."
+    },
+    3600: {
+      name: "Fortiva Summit",
+      description: "An investment option for larger balances."
+    },
+    5000: {
+      name: "Fortiva Sovereign",
+      description: "A premium investment option."
+    },
+    10000: {
+      name: "Fortiva Infinity",
+      description: "The highest standard investment option."
+    }
+  };
+
+  let selectedAmount = amountFromUrl;
+
+  if (!selectedAmount || !plans[selectedAmount]) {
+    selectedAmount = 300;
+  }
+
+  function formatKES(amount) {
+    return "KES " + Number(amount).toLocaleString("en-KE", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  }
+
+  function updatePlan() {
+    const plan = plans[selectedAmount];
+
+    planName.textContent = nameFromUrl || plan.name;
+    planDescription.textContent =
+      descriptionFromUrl || plan.description;
+
+    minimumInvestment.textContent = formatKES(selectedAmount);
+
+    investmentAmount.value = selectedAmount;
+
+    updateReturn();
+  }
+
+  function updateReturn() {
+    const amount = Number(investmentAmount.value);
+
+    if (!amount || amount <= 0) {
+      expectedReturn.textContent = "KES 0.00";
+      return;
+    }
+
+    const totalReturn = amount * 1.10;
+
+    expectedReturn.textContent = formatKES(totalReturn);
+  }
+
+  investmentAmount.addEventListener("input", updateReturn);
+
+  async function loadUser() {
+    if (!token) {
+      window.location.href = "login.html";
+      return;
+    }
+
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/me`, {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
+
+      if (!response.ok) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      const data = await response.json();
+
+      const balance =
+        Number(data.balance) ||
+        Number(data.user?.balance) ||
+        0;
+
+      availableBalance.textContent = formatKES(balance);
+
+      localStorage.setItem(
+        "fortivaUser",
+        JSON.stringify(data.user || data)
+      );
+
+    } catch (error) {
+      console.error("Failed to load user:", error);
+      availableBalance.textContent = "KES 0.00";
+    }
+  }
+
+  function showMessage(text, type) {
+    message.textContent = text;
+    message.className = `message ${type}`;
+    message.style.display = "block";
+  }
+
+  async function confirmInvestment() {
+    const amount = Number(investmentAmount.value);
+
+    if (!amount || amount <= 0) {
+      showMessage("Please enter a valid investment amount.", "error");
+      return;
+    }
+
+    if (amount < selectedAmount) {
+      showMessage(
+        `The minimum investment for this plan is ${formatKES(selectedAmount)}.`,
+        "error"
+      );
+      return;
+    }
+
+    confirmButton.disabled = true;
+    confirmButton.textContent = "Processing...";
+
+    message.style.display = "none";
+
+    try {
+      const response = await fetch(`${BACKEND_URL}/api/invest`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          amount: amount
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.message ||
+          data.error ||
+          "Investment could not be created."
+        );
+      }
+
+      if (data.balance !== undefined) {
+        availableBalance.textContent = formatKES(data.balance);
+      }
+
+      if (data.user) {
+        localStorage.setItem(
+          "fortivaUser",
+          JSON.stringify(data.user)
+        );
+      }
+
+      showMessage(
+        data.message ||
+        `Investment of ${formatKES(amount)} created successfully.`,
+        "success"
+      );
+
+      confirmButton.textContent = "Investment Created";
+
+      setTimeout(() => {
+        window.location.href = "dashboard.html";
+      }, 1800);
+
+    } catch (error) {
+      console.error("Investment error:", error);
+
+      showMessage(
+        error.message || "Something went wrong. Please try again.",
+        "error"
+      );
+
+      confirmButton.disabled = false;
+      confirmButton.textContent = "Confirm Investment";
+    }
+  }
+
+  confirmButton.addEventListener("click", confirmInvestment);
+
+  updatePlan();
+  loadUser();
+</script>
+
+</body>
+</html>
+
+Important: your "plans.html" buttons need to open this page with the selected amount, e.g. "investment.html?amount=300". If your current buttons don't do that yet, I can give you the complete updated "plans.html" with all 8 buttons connected correctly.
