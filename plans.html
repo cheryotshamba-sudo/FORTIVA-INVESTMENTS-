@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fortiva Capital - Investment Plans</title>
-
-  <style>
+  <title>Fortiva Capital - Investment Plans</title>  <style>
     * {
       box-sizing: border-box;
       margin: 0;
@@ -89,28 +86,62 @@
     .plans {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 14px;
       margin-bottom: 25px;
     }
 
-    .plan {
-      border: 1px solid #2861bd;
+    .plan-card {
       background: #0b1b31;
-      color: white;
-      border-radius: 14px;
-      padding: 18px 10px;
-      cursor: pointer;
+      border: 1px solid #2861bd;
+      border-radius: 16px;
+      padding: 17px 12px;
       text-align: center;
+    }
+
+    .plan-name {
       font-size: 17px;
       font-weight: bold;
+      margin-bottom: 10px;
     }
 
-    .plan.selected {
+    .investment {
+      color: #d5dfef;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .return-label {
+      color: #9baecc;
+      font-size: 12px;
+      margin-bottom: 3px;
+    }
+
+    .return {
+      color: #ffffff;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 7px;
+    }
+
+    .duration {
+      color: #9baecc;
+      font-size: 12px;
+      margin-bottom: 13px;
+    }
+
+    .invest-now {
+      width: 100%;
+      height: 43px;
+      border: none;
+      border-radius: 10px;
       background: #2e68e8;
-      border-color: #5ea0ff;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
     }
 
-    .plan:active {
+    .invest-now:active {
       transform: scale(0.97);
     }
 
@@ -182,10 +213,6 @@
     }
 
     @media (max-width: 480px) {
-      .plans {
-        grid-template-columns: 1fr 1fr;
-      }
-
       .main {
         padding: 25px 16px 35px;
       }
@@ -193,131 +220,166 @@
       .card {
         padding: 25px 18px;
       }
+
+      .plans {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .plan-card {
+        padding: 15px 9px;
+      }
+
+      .plan-name {
+        font-size: 15px;
+      }
     }
-  </style>
-</head>
-
-<body>
-
-  <header class="topbar">
-    <button
-      class="back-btn"
-      id="backBtn"
-      type="button">
+  </style></head><body>  <header class="topbar">
+    <button class="back-btn" id="backBtn" type="button">
       ←
-    </button>
+    </button><div class="title">
+  Fortiva Capital
+</div>
 
-    <div class="title">
-      Fortiva Plans
+  </header>  <main class="main"><section class="card">
+
+  <div class="heading">
+    Investment Plans
+  </div>
+
+  <div class="description">
+    Choose an investment plan that suits your balance.
+  </div>
+
+  <div class="balance-box">
+    <div class="balance-label">
+      Available Balance
     </div>
-  </header>
 
+    <div class="balance">
+      KES <span id="balance">0.00</span>
+    </div>
+  </div>
 
-  <main class="main">
+  <div class="plans">
 
-    <section class="card">
-
-      <div class="heading">
-        Investment Plans
-      </div>
-
-      <div class="description">
-        Select an amount to invest using your available Fortiva balance.
-      </div>
-
-
-      <div class="balance-box">
-
-        <div class="balance-label">
-          Available Balance
-        </div>
-
-        <div class="balance">
-          KES <span id="balance">0.00</span>
-        </div>
-
-      </div>
-
-
-      <div class="plans">
-
-        <button
-          class="plan"
-          data-amount="100">
-          KES 100
-        </button>
-
-        <button
-          class="plan"
-          data-amount="500">
-          KES 500
-        </button>
-
-        <button
-          class="plan"
-          data-amount="1000">
-          KES 1,000
-        </button>
-
-        <button
-          class="plan"
-          data-amount="5000">
-          KES 5,000
-        </button>
-
-        <button
-          class="plan"
-          data-amount="10000">
-          KES 10,000
-        </button>
-
-        <button
-          class="plan"
-          data-amount="25000">
-          KES 25,000
-        </button>
-
-      </div>
-
-
-      <label
-        class="custom-label"
-        for="customAmount">
-        Or enter another amount
-      </label>
-
-      <input
-        class="custom-input"
-        id="customAmount"
-        type="number"
-        min="1"
-        step="0.01"
-        placeholder="Enter investment amount">
-
-
-      <button
-        class="invest-btn"
-        id="investBtn"
-        type="button">
-        Invest Funds
+    <div class="plan-card">
+      <div class="plan-name">Fortiva Nova</div>
+      <div class="investment">KES 300</div>
+      <div class="return-label">Expected Return</div>
+      <div class="return">KES 330</div>
+      <div class="duration">24 Hours</div>
+      <button class="invest-now" data-amount="300" type="button">
+        Invest Now
       </button>
+    </div>
 
+    <div class="plan-card">
+      <div class="plan-name">Fortiva Flow</div>
+      <div class="investment">KES 600</div>
+      <div class="return-label">Expected Return</div>
+      <div class="return">KES 660</div>
+      <div class="duration">24 Hours</div>
+      <button class="invest-now" data-amount="600" type="button">
+        Invest Now
+      </button>
+    </div>
 
-      <div
-        class="message"
-        id="message">
-      </div>
+    <div class="plan-card">
+      <div class="plan-name">Fortiva Apex</div>
+      <div class="investment">KES 900</div>
+      <div class="return-label">Expected Return</div>
+      <div class="return">KES 990</div>
+      <div class="duration">24 Hours</div>
+      <button class="invest-now" data-amount="900" type="button">
+        Invest Now
+      </button>
+    </div>
 
-    </section>
+    <div class="plan-card">
+      <div class="plan-name">Fortiva Prime</div>
+      <div class="investment">KES 1,500</div>
+      <div class="return-label">Expected Return</div>
+      <div class="return">KES 1,650</div>
+      <div class="duration">24 Hours</div>
+      <button class="invest-now" data-amount="1500" type="button">
+        Invest Now
+      </button>
+    </div>
 
-  </main>
+    <div class="plan-card">
+      <div class="plan-name">Fortiva Vertex</div>
+      <div class="investment">KES 2,500</div>
+      <div class="return-label">Expected Return</div>
+      <div class="return">KES 2,750</div>
+      <div class="duration">24 Hours</div>
+      <button class="invest-now" data-amount="2500" type="button">
+        Invest Now
+      </button>
+    </div>
 
+    <div class="plan-card">
+      <div class="plan-name">Fortiva Summit</div>
+      <div class="investment">KES 3,600</div>
+      <div class="return-label">Expected Return</div>
+      <div class="return">KES 3,960</div>
+      <div class="duration">24 Hours</div>
+      <button class="invest-now" data-amount="3600" type="button">
+        Invest Now
+      </button>
+    </div>
 
-  <script>
+    <div class="plan-card">
+      <div class="plan-name">Fortiva Sovereign</div>
+      <div class="investment">KES 5,000</div>
+      <div class="return-label">Expected Return</div>
+      <div class="return">KES 5,500</div>
+      <div class="duration">24 Hours</div>
+      <button class="invest-now" data-amount="5000" type="button">
+        Invest Now
+      </button>
+    </div>
+
+    <div class="plan-card">
+      <div class="plan-name">Fortiva Infinity</div>
+      <div class="investment">KES 10,000</div>
+      <div class="return-label">Expected Return</div>
+      <div class="return">KES 11,000</div>
+      <div class="duration">24 Hours</div>
+      <button class="invest-now" data-amount="10000" type="button">
+        Invest Now
+      </button>
+    </div>
+
+  </div>
+
+  <label class="custom-label" for="customAmount">
+    Or enter another amount
+  </label>
+
+  <input
+    class="custom-input"
+    id="customAmount"
+    type="number"
+    min="1"
+    step="0.01"
+    placeholder="Enter investment amount">
+
+  <button
+    class="invest-btn"
+    id="investBtn"
+    type="button">
+    Invest Funds
+  </button>
+
+  <div class="message" id="message"></div>
+
+</section>
+
+  </main>  <script>
 
     const BACKEND_URL =
       "https://fortiva-backend-hvqy.onrender.com";
-
 
     const balanceElement =
       document.getElementById("balance");
@@ -331,13 +393,9 @@
     const message =
       document.getElementById("message");
 
-    const planButtons =
-      document.querySelectorAll(".plan");
+    const investNowButtons =
+      document.querySelectorAll(".invest-now");
 
-
-    /*
-      GET TOKEN
-    */
 
     function getToken() {
 
@@ -349,10 +407,6 @@
     }
 
 
-    /*
-      SHOW MESSAGE
-    */
-
     function showMessage(text, type) {
 
       message.textContent = text;
@@ -362,10 +416,6 @@
 
     }
 
-
-    /*
-      LOAD USER
-    */
 
     async function loadUser() {
 
@@ -440,30 +490,20 @@
 
 
     /*
-      SELECT PLAN
+      EACH INVEST NOW BUTTON
     */
 
-    planButtons.forEach(
+    investNowButtons.forEach(
       function(button) {
 
         button.addEventListener(
           "click",
           function() {
 
-            planButtons.forEach(
-              function(item) {
-                item.classList.remove(
-                  "selected"
-                );
-              }
-            );
-
-            button.classList.add(
-              "selected"
-            );
-
             customAmount.value =
               button.dataset.amount;
+
+            investFunds();
 
           }
         );
@@ -473,171 +513,161 @@
 
 
     /*
-      INVEST
+      INVEST FUNCTION
     */
 
-    investBtn.addEventListener(
-      "click",
-      async function() {
+    async function investFunds() {
 
-        const token =
-          getToken();
+      const token =
+        getToken();
 
-        if (!token) {
+      if (!token) {
 
-          window.location.href =
-            "login.html";
+        window.location.href =
+          "login.html";
 
-          return;
+        return;
 
-        }
+      }
 
-        const amount =
-          Number(customAmount.value);
+      const amount =
+        Number(customAmount.value);
 
-        if (!amount || amount <= 0) {
+      if (!amount || amount <= 0) {
 
-          showMessage(
-            "Please select or enter an investment amount.",
-            "error"
-          );
+        showMessage(
+          "Please select an investment amount.",
+          "error"
+        );
 
-          return;
+        return;
 
-        }
+      }
 
-        investBtn.disabled = true;
+      investBtn.disabled = true;
 
-        investBtn.textContent =
-          "Processing...";
+      investBtn.textContent =
+        "Processing...";
 
-        message.className =
-          "message";
+      message.className =
+        "message";
 
 
-        try {
+      try {
 
-          const response =
-            await fetch(
-              `${BACKEND_URL}/api/invest`,
-              {
-                method: "POST",
+        const response =
+          await fetch(
+            `${BACKEND_URL}/api/invest`,
+            {
+              method: "POST",
 
-                headers: {
-                  "Content-Type":
-                    "application/json",
+              headers: {
+                "Content-Type":
+                  "application/json",
 
-                  Authorization:
-                    `Bearer ${token}`,
+                Authorization:
+                  `Bearer ${token}`,
 
-                  Accept:
-                    "application/json"
-                },
+                Accept:
+                  "application/json"
+              },
 
-                body: JSON.stringify({
-                  amount: amount
-                })
-              }
-            );
-
-
-          const data =
-            await response.json();
-
-
-          if (!response.ok) {
-
-            throw new Error(
-              data.message ||
-              data.error ||
-              "Investment failed."
-            );
-
-          }
-
-
-          /*
-            UPDATE BALANCE
-          */
-
-          if (
-            data.balance !== undefined
-          ) {
-
-            balanceElement.textContent =
-              Number(
-                data.balance
-              ).toFixed(2);
-
-          }
-
-
-          /*
-            UPDATE LOCAL USER
-          */
-
-          const savedUser =
-            JSON.parse(
-              localStorage.getItem(
-                "fortivaUser"
-              ) || "{}"
-            );
-
-          savedUser.balance =
-            Number(
-              data.balance || 0
-            );
-
-          localStorage.setItem(
-            "fortivaUser",
-            JSON.stringify(
-              savedUser
-            )
-          );
-
-
-          showMessage(
-            `Investment created successfully. Reference: ${data.reference}.`,
-            "success"
-          );
-
-
-          customAmount.value = "";
-
-
-          planButtons.forEach(
-            function(item) {
-              item.classList.remove(
-                "selected"
-              );
+              body: JSON.stringify({
+                amount: amount
+              })
             }
           );
 
 
-        } catch (error) {
+        const data =
+          await response.json();
 
-          console.error(
-            "Investment error:",
-            error
+
+        if (!response.ok) {
+
+          throw new Error(
+            data.message ||
+            data.error ||
+            "Investment failed."
           );
-
-          showMessage(
-            error.message ||
-            "Investment failed.",
-            "error"
-          );
-
-        } finally {
-
-          investBtn.disabled =
-            false;
-
-          investBtn.textContent =
-            "Invest Funds";
 
         }
 
+
+        if (
+          data.balance !== undefined
+        ) {
+
+          balanceElement.textContent =
+            Number(
+              data.balance
+            ).toFixed(2);
+
+        }
+
+
+        const savedUser =
+          JSON.parse(
+            localStorage.getItem(
+              "fortivaUser"
+            ) || "{}"
+          );
+
+        savedUser.balance =
+          Number(
+            data.balance || 0
+          );
+
+        localStorage.setItem(
+          "fortivaUser",
+          JSON.stringify(
+            savedUser
+          )
+        );
+
+
+        showMessage(
+          `Investment created successfully. Reference: ${data.reference}.`,
+          "success"
+        );
+
+
+        customAmount.value = "";
+
+
+      } catch (error) {
+
+        console.error(
+          "Investment error:",
+          error
+        );
+
+        showMessage(
+          error.message ||
+          "Investment failed.",
+          "error"
+        );
+
+      } finally {
+
+        investBtn.disabled =
+          false;
+
+        investBtn.textContent =
+          "Invest Funds";
+
       }
+
+    }
+
+
+    /*
+      MAIN INVEST FUNDS BUTTON
+    */
+
+    investBtn.addEventListener(
+      "click",
+      investFunds
     );
 
 
@@ -658,13 +688,7 @@
       );
 
 
-    /*
-      START
-    */
-
     loadUser();
 
-  </script>
-
-</body>
+  </script></body>
 </html>
