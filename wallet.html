@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fortiva Capital - My Wallet</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #071426;
+      color: #ffffff;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      background: #0d1d33;
+      padding: 18px 16px;
+      border-bottom: 1px solid #1e3552;
+    }
+
+    .brand {
+      font-size: 21px;
+      font-weight: bold;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 650px;
+      margin: auto;
+      padding: 20px 15px 40px;
+    }
+
+    h1 {
+      font-size: 27px;
+      margin-bottom: 7px;
+    }
+
+    .subtitle {
+      color: #9eacbd;
+      font-size: 14px;
+      margin-bottom: 22px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
+      border-radius: 8px;
+      padding: 13px 18px;
+    }
+
+    .deposit-btn {
+      background: #16a05d;
+      color: white;
+      flex: 1;
+    }
+
+    .withdraw-btn {
+      background: #24364d;
+      color: white;
+      flex: 1;
+    }
+
+    .card {
+      background: #0d1d33;
+      border: 1px solid #1e3552;
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 15px;
+    }
+
+    .card-title {
+      font-size: 17px;
+      font-weight: bold;
+      margin-bottom: 16px;
+    }
+
+    .balance-card {
+      background: #102640;
+    }
+
+    .balance-label {
+      color: #9eacbd;
+      font-size: 14px;
+      margin-bottom: 7px;
+    }
+
+    .balance {
+      font-size: 29px;
+      font-weight: bold;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .stat {
+      background: #102640;
+      border-radius: 10px;
+      padding: 15px;
+    }
+
+    .stat-label {
+      color: #9eacbd;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .overview-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 12px 0;
+      border-bottom: 1px solid #1e3552;
+    }
+
+    .overview-row:last-child {
+      border-bottom: none;
+    }
+
+    .overview-label {
+      color: #aeb9c7;
+      font-size: 14px;
+    }
+
+    .overview-value {
+      font-weight: bold;
+      text-align: right;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 520px;
+    }
+
+    th,
+    td {
+      padding: 12px 8px;
+      text-align: left;
+      border-bottom: 1px solid #1e3552;
+      font-size: 13px;
+    }
+
+    th {
+      color: #9eacbd;
+      font-weight: normal;
+    }
+
+    .status {
+      color: #ffb84d;
+      font-weight: bold;
+    }
+
+    .back-btn {
+      background: transparent;
+      color: #aeb9c7;
+      padding: 0;
+      margin-top: 5px;
+      font-weight: normal;
+    }
+
+    .empty {
+      color: #8e9bad;
+      font-size: 14px;
+      padding: 8px 0;
+    }
+
+    @media (max-width: 420px) {
+      h1 {
+        font-size: 24px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .actions button {
+        padding: 12px 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar">
+    <div class="brand">Fortiva Capital</div>
+  </div>
+
+  <div class="container">
+
+    <h1>My Wallet</h1>
+    <p class="subtitle">
+      Manage your Fortiva funds and investment activity.
+    </p>
+
+    <div class="actions">
+      <button class="deposit-btn" onclick="goToDeposit()">
+        + Deposit
+      </button>
+
+      <button class="withdraw-btn" onclick="goToWithdraw()">
+        Withdraw
+      </button>
+    </div>
+
+    <div class="card balance-card">
+      <div class="balance-label">Available Balance</div>
+      <div class="balance" id="availableBalance">KES 0.00</div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Wallet Summary</div>
+
+      <div class="stats-grid">
+
+        <div class="stat">
+          <div class="stat-label">Total Deposited</div>
+          <div class="stat-value" id="totalDeposited">KES 0.00</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-label">Total Invested</div>
+          <div class="stat-value" id="totalInvested">KES 0.00</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-label">Total Withdrawn</div>
+          <div class="stat-value" id="totalWithdrawn">KES 0.00</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-label">Active Investments</div>
+          <div class="stat-value" id="activeInvestments">0</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-label">Active Invested</div>
+          <div class="stat-value" id="activeInvested">KES 0.00</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-label">Profit Earned</div>
+          <div class="stat-value" id="profitEarned">KES 0.00</div>
+        </div>
+
+        <div class="stat">
+          <div class="stat-label">Completed Payouts</div>
+          <div class="stat-value" id="completedPayouts">KES 0.00</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Investment Overview</div>
+
+      <div class="overview-row">
+        <span class="overview-label">Total Investments</span>
+        <span class="overview-value" id="totalInvestments">0</span>
+      </div>
+
+      <div class="overview-row">
+        <span class="overview-label">Completed Investments</span>
+        <span class="overview-value" id="completedInvestments">0</span>
+      </div>
+
+      <div class="overview-row">
+        <span class="overview-label">Active Investment Amount</span>
+        <span class="overview-value" id="activeInvestmentAmount">KES 0.00</span>
+      </div>
+
+      <div class="overview-row">
+        <span class="overview-label">Active Expected Profit</span>
+        <span class="overview-value" id="activeExpectedProfit">KES 0.00</span>
+      </div>
+
+      <div class="overview-row">
+        <span class="overview-label">Completed Investment Amount</span>
+        <span class="overview-value" id="completedInvestmentAmount">KES 0.00</span>
+      </div>
+
+      <div class="overview-row">
+        <span class="overview-label">Total Profit Earned</span>
+        <span class="overview-value" id="totalProfitEarned">KES 0.00</span>
+      </div>
+
+      <div class="overview-row">
+        <span class="overview-label">Total Payouts</span>
+        <span class="overview-value" id="totalPayouts">KES 0.00</span>
+      </div>
+
+      <div class="overview-row">
+        <span class="overview-label">Approved Withdrawals</span>
+        <span class="overview-value" id="approvedWithdrawals">KES 0.00</span>
+      </div>
+
+    </div>
+
+    <div class="card">
+      <div class="card-title">Recent Deposit Activity</div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Amount</th>
+              <th>Reference</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+
+          <tbody id="depositTableBody">
+            <tr>
+              <td colspan="4" class="empty">
+                No deposit activity yet.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <button class="back-btn" onclick="goToDashboard()">
+      ← Back to Dashboard
+    </button>
+
+  </div>
+
+  <script>
+
+    function goToDeposit() {
+      window.location.href = "deposit.html";
+    }
+
+    function goToWithdraw() {
+      window.location.href = "withdrawal.html";
+    }
+
+    function goToDashboard() {
+      window.location.href = "dashboard.html";
+    }
+
+  </script>
+
+</body>
+</html>
