@@ -260,6 +260,7 @@
 </div>
 
 <script>
+    const API_URL = "https://fortiva-backend-hvqy.onrender.com";
 
     function togglePassword() {
         const password = document.getElementById("password");
@@ -276,18 +277,55 @@
 
     function forgotPassword(event) {
         event.preventDefault();
-        alert("Password recovery will be available once the account system is connected.");
+        alert("Password recovery is not available yet.");
     }
 
-    document.getElementById("loginForm").addEventListener("submit", function(event) {
+    document.getElementById("loginForm").addEventListener("submit", async function(event) {
         event.preventDefault();
 
-        alert("Login backend is not connected yet.");
+        const phone = document.getElementById("phone").value.trim();
+        const password = document.getElementById("password").value;
+        const button = document.querySelector(".login-btn");
 
-        // Dashboard redirect will be connected
-        // after the backend authentication system is added.
+        button.disabled = true;
+        button.textContent = "Signing In...";
+
+        try {
+            const response = await fetch(`${API_URL}/api/login`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    phone: phone,
+                    password: password
+                })
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || "Login failed.");
+            }
+
+            // Save the authentication token
+            localStorage.setItem("fortivaToken", data.token);
+
+            // Save the logged-in user's information
+            localStorage.setItem("fortivaUser", JSON.stringify(data.user));
+
+            // Go to dashboard
+            window.location.href = "dashboard.html";
+
+        } catch (error) {
+            console.error("Login error:", error);
+
+            alert(error.message || "Unable to connect to the server.");
+
+            button.disabled = false;
+            button.textContent = "Sign In";
+        }
     });
-
 </script>
 
 </body>
