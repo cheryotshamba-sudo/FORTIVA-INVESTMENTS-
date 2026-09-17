@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fortiva Capital - Withdraw</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #071426;
+      color: #ffffff;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      height: 78px;
+      background: #10233d;
+      border-bottom: 1px solid #1c3a61;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    .back-btn {
+      border: none;
+      background: transparent;
+      color: white;
+      font-size: 30px;
+      cursor: pointer;
+      margin-right: 15px;
+    }
+
+    .title {
+      font-size: 21px;
+      font-weight: bold;
+    }
+
+    .main {
+      max-width: 600px;
+      margin: auto;
+      padding: 30px 18px;
+    }
+
+    .card {
+      background: #10233d;
+      border: 1px solid #1c3c68;
+      border-radius: 24px;
+      padding: 28px 22px;
+    }
+
+    .heading {
+      font-size: 25px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .description {
+      color: #9baecc;
+      font-size: 15px;
+      line-height: 1.5;
+      margin-bottom: 28px;
+    }
+
+    .balance-box {
+      background: #102b5b;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 25px;
+    }
+
+    .balance-label {
+      color: #9baecc;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .balance {
+      font-size: 32px;
+      font-weight: bold;
+    }
+
+    label {
+      display: block;
+      color: #d5dfef;
+      font-size: 15px;
+      font-weight: bold;
+      margin-bottom: 9px;
+    }
+
+    input {
+      width: 100%;
+      height: 56px;
+      border: 1px solid #2861bd;
+      border-radius: 12px;
+      background: #071426;
+      color: white;
+      padding: 0 15px;
+      font-size: 17px;
+      outline: none;
+      margin-bottom: 20px;
+    }
+
+    input:focus {
+      border-color: #5ea0ff;
+    }
+
+    .withdraw-btn {
+      width: 100%;
+      height: 60px;
+      border: none;
+      border-radius: 13px;
+      background: #2e68e8;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .withdraw-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .message {
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 10px;
+      display: none;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .message.show {
+      display: block;
+    }
+
+    .message.success {
+      background: rgba(0, 166, 81, 0.15);
+      border: 1px solid #00a651;
+      color: #8ff0b8;
+    }
+
+    .message.error {
+      background: rgba(255, 80, 90, 0.12);
+      border: 1px solid #ff737d;
+      color: #ff9da4;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="topbar">
+    <button class="back-btn" id="backBtn" type="button">←</button>
+    <div class="title">Withdraw Funds</div>
+  </header>
+
+  <main class="main">
+
+    <section class="card">
+
+      <div class="heading">
+        Withdraw Funds
+      </div>
+
+      <div class="description">
+        Enter the M-Pesa number and amount you want to withdraw.
+      </div>
+
+      <div class="balance-box">
+        <div class="balance-label">
+          Available Balance
+        </div>
+
+        <div class="balance">
+          KES <span id="balance">0.00</span>
+        </div>
+      </div>
+
+      <label for="phone">
+        M-Pesa Phone Number
+      </label>
+
+      <input
+        type="tel"
+        id="phone"
+        placeholder="07XXXXXXXX"
+        autocomplete="tel"
+      >
+
+      <label for="amount">
+        Withdrawal Amount
+      </label>
+
+      <input
+        type="number"
+        id="amount"
+        placeholder="Enter amount"
+        min="1"
+        step="0.01"
+      >
+
+      <button
+        class="withdraw-btn"
+        id="withdrawBtn"
+        type="button">
+        Withdraw Funds
+      </button>
+
+      <div
+        class="message"
+        id="message">
+      </div>
+
+    </section>
+
+  </main>
+
+  <script>
+
+    const BACKEND_URL =
+      "https://fortiva-backend-hvqy.onrender.com";
+
+    const balanceElement =
+      document.getElementById("balance");
+
+    const phoneInput =
+      document.getElementById("phone");
+
+    const amountInput =
+      document.getElementById("amount");
+
+    const withdrawBtn =
+      document.getElementById("withdrawBtn");
+
+    const message =
+      document.getElementById("message");
+
+    /*
+      GET LOGIN TOKEN
+    */
+
+    function getToken() {
+
+      return (
+        localStorage.getItem("token") ||
+        localStorage.getItem("fortivaToken")
+      );
+
+    }
+
+
+    /*
+      SHOW MESSAGE
+    */
+
+    function showMessage(text, type) {
+
+      message.textContent = text;
+
+      message.className =
+        `message show ${type}`;
+
+    }
+
+
+    /*
+      LOAD CURRENT BALANCE
+    */
+
+    async function loadUser() {
+
+      const token = getToken();
+
+      if (!token) {
+
+        window.location.href =
+          "login.html";
+
+        return;
+
+      }
+
+      try {
+
+        const response =
+          await fetch(
+            `${BACKEND_URL}/api/me`,
+            {
+              method: "GET",
+              headers: {
+                Authorization:
+                  `Bearer ${token}`,
+                Accept:
+                  "application/json"
+              }
+            }
+          );
+
+        const data =
+          await response.json();
+
+        if (!response.ok) {
+
+          localStorage.removeItem("token");
+          localStorage.removeItem("fortivaToken");
+
+          window.location.href =
+            "login.html";
+
+          return;
+
+        }
+
+        const user =
+          data.user;
+
+        const balance =
+          Number(user.balance || 0);
+
+        balanceElement.textContent =
+          balance.toFixed(2);
+
+      } catch (error) {
+
+        console.error(
+          "Balance loading error:",
+          error
+        );
+
+        showMessage(
+          "Unable to load your account balance.",
+          "error"
+        );
+
+      }
+
+    }
+
+
+    /*
+      WITHDRAW
+    */
+
+    withdrawBtn.addEventListener(
+      "click",
+      async function () {
+
+        const token = getToken();
+
+        if (!token) {
+
+          window.location.href =
+            "login.html";
+
+          return;
+
+        }
+
+        const phone =
+          phoneInput.value.trim();
+
+        const amount =
+          Number(amountInput.value);
+
+        if (!phone) {
+
+          showMessage(
+            "Please enter your M-Pesa phone number.",
+            "error"
+          );
+
+          return;
+
+        }
+
+        if (!/^(\+254|254|0)7\d{8}$/.test(phone)) {
+
+          showMessage(
+            "Please enter a valid Kenyan M-Pesa number.",
+            "error"
+          );
+
+          return;
+
+        }
+
+        if (!amount || amount <= 0) {
+
+          showMessage(
+            "Please enter a valid withdrawal amount.",
+            "error"
+          );
+
+          return;
+
+        }
+
+        withdrawBtn.disabled = true;
+
+        withdrawBtn.textContent =
+          "Processing...";
+
+        message.className =
+          "message";
+
+        try {
+
+          const response =
+            await fetch(
+              `${BACKEND_URL}/api/withdraw`,
+              {
+                method: "POST",
+
+                headers: {
+                  "Content-Type":
+                    "application/json",
+
+                  Authorization:
+                    `Bearer ${token}`,
+
+                  Accept:
+                    "application/json"
+                },
+
+                body: JSON.stringify({
+                  amount: amount,
+                  phone: phone
+                })
+              }
+            );
+
+          const data =
+            await response.json();
+
+          if (!response.ok) {
+
+            throw new Error(
+              data.message ||
+              data.error ||
+              "Withdrawal failed."
+            );
+
+          }
+
+          /*
+            UPDATE BALANCE
+          */
+
+          if (
+            data.balance !== undefined
+          ) {
+
+            balanceElement.textContent =
+              Number(
+                data.balance
+              ).toFixed(2);
+
+          }
+
+          /*
+            UPDATE LOCAL USER
+          */
+
+          const savedUser =
+            JSON.parse(
+              localStorage.getItem(
+                "fortivaUser"
+              ) || "{}"
+            );
+
+          savedUser.balance =
+            Number(
+              data.balance || 0
+            );
+
+          localStorage.setItem(
+            "fortivaUser",
+            JSON.stringify(
+              savedUser
+            )
+          );
+
+          showMessage(
+            `Withdrawal request created successfully. Reference: ${data.reference}. Status: ${data.status}.`,
+            "success"
+          );
+
+          amountInput.value = "";
+
+        } catch (error) {
+
+          console.error(
+            "Withdrawal error:",
+            error
+          );
+
+          showMessage(
+            error.message ||
+            "Withdrawal failed.",
+            "error"
+          );
+
+        } finally {
+
+          withdrawBtn.disabled =
+            false;
+
+          withdrawBtn.textContent =
+            "Withdraw Funds";
+
+        }
+
+      }
+    );
+
+
+    /*
+      BACK TO DASHBOARD
+    */
+
+    document
+      .getElementById("backBtn")
+      .addEventListener(
+        "click",
+        function () {
+
+          window.location.href =
+            "dashboard.html";
+
+        }
+      );
+
+
+    /*
+      START
+    */
+
+    loadUser();
+
+  </script>
+
+</body>
+</html>
