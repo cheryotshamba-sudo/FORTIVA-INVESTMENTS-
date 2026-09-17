@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#060E25">
+  <title>Create Account | Fortiva Capital</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      margin: 0;
+      background-color: #060E25;
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      width: min(100% - 24px, 500px);
+      margin: auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* HEADER */
+    header {
+      padding: 22px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -.5px;
+    }
+
+    .logo span {
+      color: #D4AF37;
+    }
+
+    .back {
+      width: 40px;
+      height: 40px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 20px;
+      background: rgba(255,255,255,.04);
+    }
+
+    /* MAIN */
+    main {
+      flex: 1;
+      padding: 25px 0 45px;
+    }
+
+    .heading {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .heading .icon {
+      width: 58px;
+      height: 58px;
+      margin: 0 auto 18px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      background: rgba(212,175,55,.1);
+      border: 1px solid rgba(212,175,55,.2);
+      color: #D4AF37;
+      font-size: 25px;
+    }
+
+    .heading h1 {
+      font-size: 31px;
+      line-height: 1.15;
+      margin-bottom: 9px;
+    }
+
+    .heading p {
+      color: #9faac2;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* FORM CARD */
+    .card {
+      background: rgba(255,255,255,.035);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 18px;
+      padding: 22px;
+    }
+
+    .form-group {
+      margin-bottom: 17px;
+    }
+
+    label {
+      display: block;
+      color: #dce2ef;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .required {
+      color: #D4AF37;
+    }
+
+    input {
+      width: 100%;
+      height: 50px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 10px;
+      outline: none;
+      background: rgba(0,0,0,.2);
+      color: #fff;
+      padding: 0 14px;
+      font-size: 14px;
+      transition: .2s ease;
+    }
+
+    input::placeholder {
+      color: #68758f;
+    }
+
+    input:focus {
+      border-color: #D4AF37;
+      box-shadow: 0 0 0 3px rgba(212,175,55,.08);
+    }
+
+    .password-wrap {
+      position: relative;
+    }
+
+    .password-wrap input {
+      padding-right: 55px;
+    }
+
+    .toggle {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 0;
+      background: transparent;
+      color: #8d99b2;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .hint {
+      color: #75819a;
+      font-size: 11px;
+      margin-top: 6px;
+    }
+
+    /* TERMS */
+    .terms {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .terms input {
+      width: 17px;
+      height: 17px;
+      margin-top: 2px;
+      accent-color: #D4AF37;
+      flex-shrink: 0;
+    }
+
+    .terms label {
+      font-weight: 400;
+      color: #8995ae;
+      font-size: 12px;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .terms a {
+      color: #D4AF37;
+      font-weight: 700;
+    }
+
+    /* BUTTON */
+    .submit {
+      width: 100%;
+      height: 52px;
+      border: 0;
+      border-radius: 10px;
+      background: #D4AF37;
+      color: #060E25;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .submit:hover {
+      transform: translateY(-1px);
+    }
+
+    .submit:disabled {
+      opacity: .65;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* LOGIN */
+    .login {
+      text-align: center;
+      color: #8e9ab3;
+      font-size: 13px;
+      margin-top: 22px;
+    }
+
+    .login a {
+      color: #D4AF37;
+      font-weight: 800;
+    }
+
+    /* SECURITY */
+    .security {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      margin-top: 20px;
+      padding: 13px;
+      border-radius: 10px;
+      background: rgba(39,209,127,.04);
+      border: 1px solid rgba(39,209,127,.1);
+      color: #8490a9;
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .security-icon {
+      color: #38d996;
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 20px 0 25px;
+      color: #59657d;
+      font-size: 11px;
+    }
+
+    /* MOBILE */
+    @media (max-width: 400px) {
+      .card {
+        padding: 18px;
+      }
+
+      .heading h1 {
+        font-size: 28px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="page">
+
+    <header>
+      <a href="index.html" class="logo">
+        Fortiva <span>Capital.</span>
+      </a>
+
+      <a href="index.html" class="back" aria-label="Back">
+        ←
+      </a>
+    </header>
+
+    <main>
+
+      <div class="heading">
+        <div class="icon">+</div>
+
+        <h1>Create Your Account</h1>
+
+        <p>
+          Join Fortiva Capital and manage your account,
+          deposits and investment activity from one place.
+        </p>
+      </div>
+
+      <div class="card">
+
+        <form id="registerForm">
+
+          <div class="form-group">
+            <label for="fullName">
+              Full Name <span class="required">*</span>
+            </label>
+
+            <input
+              type="text"
+              id="fullName"
+              name="fullName"
+              placeholder="Enter your full name"
+              autocomplete="name"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="phone">
+              Phone Number <span class="required">*</span>
+            </label>
+
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="e.g. 0712345678"
+              autocomplete="tel"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="email">
+              Email Address <span class="required">*</span>
+            </label>
+
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="Enter your email address"
+              autocomplete="email"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="password">
+              Create Password <span class="required">*</span>
+            </label>
+
+            <div class="password-wrap">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Create a secure password"
+                autocomplete="new-password"
+                required
+                minlength="6"
+              >
+
+              <button
+                type="button"
+                class="toggle"
+                onclick="togglePassword('password', this)"
+              >
+                SHOW
+              </button>
+            </div>
+
+            <div class="hint">
+              Use at least 6 characters.
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">
+              Confirm Password <span class="required">*</span>
+            </label>
+
+            <div class="password-wrap">
+              <input
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                placeholder="Confirm your password"
+                autocomplete="new-password"
+                required
+                minlength="6"
+              >
+
+              <button
+                type="button"
+                class="toggle"
+                onclick="togglePassword('confirmPassword', this)"
+              >
+                SHOW
+              </button>
+            </div>
+          </div>
+
+          <div class="terms">
+            <input
+              type="checkbox"
+              id="terms"
+              required
+            >
+
+            <label for="terms">
+              I agree to the
+              <a href="terms.html">Terms & Conditions</a>
+              and
+              <a href="privacy.html">Privacy Policy</a>.
+            </label>
+          </div>
+
+          <button
+            type="submit"
+            class="submit"
+            id="submitButton"
+          >
+            Create Account
+          </button>
+
+        </form>
+
+        <div class="login">
+          Already have an account?
+          <a href="login.html">Sign In</a>
+        </div>
+
+        <div class="security">
+          <div class="security-icon">✓</div>
+
+          <div>
+            Your account is protected with password-based
+            authentication and secure session management.
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+    <footer>
+      © 2026 Fortiva Capital. All rights reserved.
+    </footer>
+
+  </div>
+
+  <script>
+    function togglePassword(id, button) {
+      const input = document.getElementById(id);
+
+      if (input.type === "password") {
+        input.type = "text";
+        button.textContent = "HIDE";
+      } else {
+        input.type = "password";
+        button.textContent = "SHOW";
+      }
+    }
+
+    document.getElementById("registerForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const password = document.getElementById("password").value;
+      const confirmPassword = document.getElementById("confirmPassword").value;
+      const button = document.getElementById("submitButton");
+
+      if (password !== confirmPassword) {
+        alert("Passwords do not match.");
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = "Creating Account...";
+
+      /*
+        Registration backend will be connected here.
+        Do not store real user passwords in localStorage.
+      */
+
+      setTimeout(() => {
+        alert("Registration backend is not connected yet.");
+        button.disabled = false;
+        button.textContent = "Create Account";
+      }, 700);
+    });
+  </script>
+
+</body>
+</html>
