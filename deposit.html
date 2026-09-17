@@ -1,0 +1,315 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>Fortiva Capital - Deposit</title>  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #071426;
+      color: white;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      height: 78px;
+      background: #10233d;
+      border-bottom: 1px solid #1c3a61;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    .back {
+      color: white;
+      text-decoration: none;
+      font-size: 30px;
+      margin-right: 25px;
+    }
+
+    .title {
+      font-size: 21px;
+      font-weight: bold;
+    }
+
+    .main {
+      max-width: 600px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    .card {
+      background: #10233d;
+      border: 1px solid #1c3c68;
+      border-radius: 22px;
+      padding: 28px 22px;
+    }
+
+    h1 {
+      font-size: 27px;
+      margin-bottom: 10px;
+    }
+
+    .description {
+      color: #a7b5c9;
+      line-height: 1.5;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      color: #cbd6e5;
+      font-weight: bold;
+      margin-bottom: 9px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      height: 52px;
+      border: 1px solid #31537e;
+      border-radius: 9px;
+      background: #091a2f;
+      color: white;
+      padding: 0 14px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      outline: none;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #4388f5;
+    }
+
+    .button {
+      width: 100%;
+      height: 55px;
+      border: none;
+      border-radius: 10px;
+      background: #2e68e8;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .message {
+      display: none;
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .message.success {
+      display: block;
+      background: #0b2a20;
+      border: 1px solid #1d7055;
+      color: #9ce5c9;
+    }
+
+    .message.error {
+      display: block;
+      background: #35151a;
+      border: 1px solid #8d3540;
+      color: #ffb5bd;
+    }
+
+    .notice {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      background: #0b1d33;
+      border: 1px solid #24476e;
+      color: #aebed3;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+  </style></head><body>  <header class="topbar">
+    <a class="back" href="dashboard.html">‹</a>
+    <div class="title">Deposit Funds</div>
+  </header>  <main class="main"><div class="card">
+
+  <h1>Deposit Funds</h1>
+
+  <p class="description">
+    Enter the amount you want to deposit and use your M-Pesa
+    phone number to make the payment.
+  </p>
+
+  <label for="amount">Amount (KES)</label>
+
+  <input
+    type="number"
+    id="amount"
+    placeholder="Enter amount"
+    min="1"
+    inputmode="numeric"
+  >
+
+  <label for="method">Payment Method</label>
+
+  <select id="method">
+    <option value="mpesa">M-Pesa</option>
+  </select>
+
+  <label for="phone">M-Pesa Phone Number</label>
+
+  <input
+    type="tel"
+    id="phone"
+    placeholder="07XXXXXXXX or 2547XXXXXXXX"
+    inputmode="tel"
+  >
+
+  <button class="button" id="continueBtn">
+    Deposit Funds
+  </button>
+
+  <div id="message" class="message"></div>
+
+  <div class="notice">
+    Your payment will be processed through the connected payment
+    provider. Your Fortiva Capital balance should only be updated
+    after the payment has been confirmed.
+  </div>
+
+</div>
+
+  </main>  <script>
+    const continueBtn = document.getElementById("continueBtn");
+    const message = document.getElementById("message");
+
+    /*
+      IMPORTANT:
+      This is the FRONTEND only.
+
+      Do not put the Paylor API key, secret, or webhook secret here.
+      Those belong in the Fortiva backend/server.js.
+    */
+
+    const BACKEND_URL =
+      "https://YOUR-FORTIVA-BACKEND.onrender.com";
+
+    function showMessage(text, type) {
+      message.textContent = text;
+      message.className = "message " + type;
+    }
+
+    function normalizePhone(phone) {
+      phone = phone.replace(/\s+/g, "");
+
+      if (phone.startsWith("07")) {
+        return "254" + phone.substring(1);
+      }
+
+      if (phone.startsWith("01")) {
+        return "254" + phone.substring(1);
+      }
+
+      if (phone.startsWith("+254")) {
+        return phone.substring(1);
+      }
+
+      return phone;
+    }
+
+    continueBtn.addEventListener("click", async function () {
+
+      const amount = document.getElementById("amount").value.trim();
+      const method = document.getElementById("method").value;
+      const phoneInput = document.getElementById("phone").value.trim();
+
+      message.className = "message";
+      message.textContent = "";
+
+      if (!amount || Number(amount) <= 0) {
+        showMessage("Please enter a valid deposit amount.", "error");
+        return;
+      }
+
+      if (!method) {
+        showMessage("Please select a payment method.", "error");
+        return;
+      }
+
+      if (!phoneInput) {
+        showMessage("Please enter your M-Pesa phone number.", "error");
+        return;
+      }
+
+      const phone = normalizePhone(phoneInput);
+
+      if (!/^254(7|1)\d{8}$/.test(phone)) {
+        showMessage(
+          "Please enter a valid Kenyan M-Pesa phone number.",
+          "error"
+        );
+        return;
+      }
+
+      continueBtn.disabled = true;
+      continueBtn.textContent = "Initiating payment...";
+
+      try {
+
+        const response = await fetch(
+          BACKEND_URL + "/api/deposit",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              amount: Number(amount),
+              method: method,
+              phone: phone
+            })
+          }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(
+            data.message || "Unable to initiate payment."
+          );
+        }
+
+        showMessage(
+          data.message ||
+          "Payment request sent. Check your phone and complete the M-Pesa payment.",
+          "success"
+        );
+
+      } catch (error) {
+
+        console.error("Deposit error:", error);
+
+        showMessage(
+          error.message ||
+          "Unable to connect to the payment server.",
+          "error"
+        );
+
+      } finally {
+
+        continueBtn.disabled = false;
+        continueBtn.textContent = "Deposit Funds";
+
+      }
+
+    });
+  </script></body>
+</html>
