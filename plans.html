@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fortiva Capital - Investment Plans</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #071426;
+      color: #ffffff;
+      min-height: 100vh;
+    }
+
+    .topbar {
+      height: 78px;
+      background: #10233d;
+      border-bottom: 1px solid #1c3a61;
+      display: flex;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    .back-btn {
+      border: none;
+      background: transparent;
+      color: white;
+      font-size: 30px;
+      cursor: pointer;
+      margin-right: 15px;
+    }
+
+    .title {
+      font-size: 21px;
+      font-weight: bold;
+    }
+
+    .main {
+      max-width: 650px;
+      margin: auto;
+      padding: 30px 18px 45px;
+    }
+
+    .card {
+      background: #10233d;
+      border: 1px solid #1c3c68;
+      border-radius: 24px;
+      padding: 28px 22px;
+    }
+
+    .heading {
+      font-size: 25px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .description {
+      color: #9baecc;
+      font-size: 15px;
+      line-height: 1.5;
+      margin-bottom: 25px;
+    }
+
+    .balance-box {
+      background: #102b5b;
+      border-radius: 15px;
+      padding: 20px;
+      margin-bottom: 25px;
+    }
+
+    .balance-label {
+      color: #9baecc;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .balance {
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    .plans {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+
+    .plan {
+      border: 1px solid #2861bd;
+      background: #0b1b31;
+      color: white;
+      border-radius: 14px;
+      padding: 18px 10px;
+      cursor: pointer;
+      text-align: center;
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    .plan.selected {
+      background: #2e68e8;
+      border-color: #5ea0ff;
+    }
+
+    .plan:active {
+      transform: scale(0.97);
+    }
+
+    .custom-label {
+      display: block;
+      color: #d5dfef;
+      font-size: 15px;
+      font-weight: bold;
+      margin-bottom: 9px;
+    }
+
+    .custom-input {
+      width: 100%;
+      height: 55px;
+      border: 1px solid #2861bd;
+      border-radius: 12px;
+      background: #071426;
+      color: white;
+      padding: 0 15px;
+      font-size: 17px;
+      outline: none;
+      margin-bottom: 20px;
+    }
+
+    .custom-input:focus {
+      border-color: #5ea0ff;
+    }
+
+    .invest-btn {
+      width: 100%;
+      height: 60px;
+      border: none;
+      border-radius: 13px;
+      background: #2e68e8;
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .invest-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .message {
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 10px;
+      display: none;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .message.show {
+      display: block;
+    }
+
+    .message.success {
+      background: rgba(0, 166, 81, 0.15);
+      border: 1px solid #00a651;
+      color: #8ff0b8;
+    }
+
+    .message.error {
+      background: rgba(255, 80, 90, 0.12);
+      border: 1px solid #ff737d;
+      color: #ff9da4;
+    }
+
+    @media (max-width: 480px) {
+      .plans {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .main {
+        padding: 25px 16px 35px;
+      }
+
+      .card {
+        padding: 25px 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="topbar">
+    <button
+      class="back-btn"
+      id="backBtn"
+      type="button">
+      ←
+    </button>
+
+    <div class="title">
+      Fortiva Plans
+    </div>
+  </header>
+
+
+  <main class="main">
+
+    <section class="card">
+
+      <div class="heading">
+        Investment Plans
+      </div>
+
+      <div class="description">
+        Select an amount to invest using your available Fortiva balance.
+      </div>
+
+
+      <div class="balance-box">
+
+        <div class="balance-label">
+          Available Balance
+        </div>
+
+        <div class="balance">
+          KES <span id="balance">0.00</span>
+        </div>
+
+      </div>
+
+
+      <div class="plans">
+
+        <button
+          class="plan"
+          data-amount="100">
+          KES 100
+        </button>
+
+        <button
+          class="plan"
+          data-amount="500">
+          KES 500
+        </button>
+
+        <button
+          class="plan"
+          data-amount="1000">
+          KES 1,000
+        </button>
+
+        <button
+          class="plan"
+          data-amount="5000">
+          KES 5,000
+        </button>
+
+        <button
+          class="plan"
+          data-amount="10000">
+          KES 10,000
+        </button>
+
+        <button
+          class="plan"
+          data-amount="25000">
+          KES 25,000
+        </button>
+
+      </div>
+
+
+      <label
+        class="custom-label"
+        for="customAmount">
+        Or enter another amount
+      </label>
+
+      <input
+        class="custom-input"
+        id="customAmount"
+        type="number"
+        min="1"
+        step="0.01"
+        placeholder="Enter investment amount">
+
+
+      <button
+        class="invest-btn"
+        id="investBtn"
+        type="button">
+        Invest Funds
+      </button>
+
+
+      <div
+        class="message"
+        id="message">
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <script>
+
+    const BACKEND_URL =
+      "https://fortiva-backend-hvqy.onrender.com";
+
+
+    const balanceElement =
+      document.getElementById("balance");
+
+    const customAmount =
+      document.getElementById("customAmount");
+
+    const investBtn =
+      document.getElementById("investBtn");
+
+    const message =
+      document.getElementById("message");
+
+    const planButtons =
+      document.querySelectorAll(".plan");
+
+
+    /*
+      GET TOKEN
+    */
+
+    function getToken() {
+
+      return (
+        localStorage.getItem("token") ||
+        localStorage.getItem("fortivaToken")
+      );
+
+    }
+
+
+    /*
+      SHOW MESSAGE
+    */
+
+    function showMessage(text, type) {
+
+      message.textContent = text;
+
+      message.className =
+        `message show ${type}`;
+
+    }
+
+
+    /*
+      LOAD USER
+    */
+
+    async function loadUser() {
+
+      const token = getToken();
+
+      if (!token) {
+
+        window.location.href =
+          "login.html";
+
+        return;
+
+      }
+
+      try {
+
+        const response =
+          await fetch(
+            `${BACKEND_URL}/api/me`,
+            {
+              method: "GET",
+
+              headers: {
+                Authorization:
+                  `Bearer ${token}`,
+
+                Accept:
+                  "application/json"
+              }
+            }
+          );
+
+        const data =
+          await response.json();
+
+        if (!response.ok) {
+
+          localStorage.removeItem("token");
+          localStorage.removeItem("fortivaToken");
+
+          window.location.href =
+            "login.html";
+
+          return;
+
+        }
+
+        const user =
+          data.user;
+
+        const balance =
+          Number(user.balance || 0);
+
+        balanceElement.textContent =
+          balance.toFixed(2);
+
+      } catch (error) {
+
+        console.error(
+          "User loading error:",
+          error
+        );
+
+        showMessage(
+          "Unable to load your account.",
+          "error"
+        );
+
+      }
+
+    }
+
+
+    /*
+      SELECT PLAN
+    */
+
+    planButtons.forEach(
+      function(button) {
+
+        button.addEventListener(
+          "click",
+          function() {
+
+            planButtons.forEach(
+              function(item) {
+                item.classList.remove(
+                  "selected"
+                );
+              }
+            );
+
+            button.classList.add(
+              "selected"
+            );
+
+            customAmount.value =
+              button.dataset.amount;
+
+          }
+        );
+
+      }
+    );
+
+
+    /*
+      INVEST
+    */
+
+    investBtn.addEventListener(
+      "click",
+      async function() {
+
+        const token =
+          getToken();
+
+        if (!token) {
+
+          window.location.href =
+            "login.html";
+
+          return;
+
+        }
+
+        const amount =
+          Number(customAmount.value);
+
+        if (!amount || amount <= 0) {
+
+          showMessage(
+            "Please select or enter an investment amount.",
+            "error"
+          );
+
+          return;
+
+        }
+
+        investBtn.disabled = true;
+
+        investBtn.textContent =
+          "Processing...";
+
+        message.className =
+          "message";
+
+
+        try {
+
+          const response =
+            await fetch(
+              `${BACKEND_URL}/api/invest`,
+              {
+                method: "POST",
+
+                headers: {
+                  "Content-Type":
+                    "application/json",
+
+                  Authorization:
+                    `Bearer ${token}`,
+
+                  Accept:
+                    "application/json"
+                },
+
+                body: JSON.stringify({
+                  amount: amount
+                })
+              }
+            );
+
+
+          const data =
+            await response.json();
+
+
+          if (!response.ok) {
+
+            throw new Error(
+              data.message ||
+              data.error ||
+              "Investment failed."
+            );
+
+          }
+
+
+          /*
+            UPDATE BALANCE
+          */
+
+          if (
+            data.balance !== undefined
+          ) {
+
+            balanceElement.textContent =
+              Number(
+                data.balance
+              ).toFixed(2);
+
+          }
+
+
+          /*
+            UPDATE LOCAL USER
+          */
+
+          const savedUser =
+            JSON.parse(
+              localStorage.getItem(
+                "fortivaUser"
+              ) || "{}"
+            );
+
+          savedUser.balance =
+            Number(
+              data.balance || 0
+            );
+
+          localStorage.setItem(
+            "fortivaUser",
+            JSON.stringify(
+              savedUser
+            )
+          );
+
+
+          showMessage(
+            `Investment created successfully. Reference: ${data.reference}.`,
+            "success"
+          );
+
+
+          customAmount.value = "";
+
+
+          planButtons.forEach(
+            function(item) {
+              item.classList.remove(
+                "selected"
+              );
+            }
+          );
+
+
+        } catch (error) {
+
+          console.error(
+            "Investment error:",
+            error
+          );
+
+          showMessage(
+            error.message ||
+            "Investment failed.",
+            "error"
+          );
+
+        } finally {
+
+          investBtn.disabled =
+            false;
+
+          investBtn.textContent =
+            "Invest Funds";
+
+        }
+
+      }
+    );
+
+
+    /*
+      BACK TO DASHBOARD
+    */
+
+    document
+      .getElementById("backBtn")
+      .addEventListener(
+        "click",
+        function() {
+
+          window.location.href =
+            "dashboard.html";
+
+        }
+      );
+
+
+    /*
+      START
+    */
+
+    loadUser();
+
+  </script>
+
+</body>
+</html>
