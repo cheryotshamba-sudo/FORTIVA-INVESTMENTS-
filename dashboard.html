@@ -1,459 +1,537 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | Fortiva Capital</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fortiva Capital - Dashboard</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            margin: 0;
-            background-color: #060E25;
-            color: #fff;
-            font-family: Arial, sans-serif;
-        }
+    body {
+      font-family: Arial, sans-serif;
+      background: #071426;
+      color: #ffffff;
+      min-height: 100vh;
+    }
 
-        .page {
-            width: 100%;
-            max-width: 480px;
-            margin: auto;
-            min-height: 100vh;
-            padding: 18px;
-            padding-bottom: 30px;
-        }
+    /* TOP BAR */
+    .topbar {
+      height: 78px;
+      background: #10233d;
+      border-bottom: 1px solid #1c3a61;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
 
-        /* HEADER */
+    .menu-btn {
+      width: 48px;
+      height: 48px;
+      border: none;
+      background: transparent;
+      color: white;
+      font-size: 31px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-        .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 25px;
-        }
+    .brand {
+      font-size: 22px;
+      font-weight: bold;
+    }
 
-        .brand {
-            color: #D4AF37;
-            font-size: 20px;
-            font-weight: bold;
-        }
+    .profile {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #3679ed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: bold;
+    }
 
-        .profile {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            border: 1px solid rgba(212,175,55,0.4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #D4AF37;
-            font-weight: bold;
-            background: #0b1533;
-        }
+    /* MAIN */
+    .main {
+      padding: 34px 20px 45px;
+      max-width: 700px;
+      margin: auto;
+    }
 
-        /* WELCOME */
+    /* ACCOUNT CARD */
+    .account-card {
+      background: linear-gradient(135deg, #10244a, #173d91);
+      border: 1px solid #2861d5;
+      border-radius: 24px;
+      padding: 30px 25px;
+      box-shadow: 0 12px 35px rgba(0, 60, 180, 0.22);
+    }
 
-        .welcome {
-            margin-bottom: 20px;
-        }
+    .account-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 38px;
+    }
 
-        .welcome p {
-            margin: 0 0 5px;
-            color: #929bb0;
-            font-size: 13px;
-        }
+    .account-name {
+      color: #d5dfef;
+      font-size: 17px;
+      font-weight: bold;
+      line-height: 1.35;
+    }
 
-        .welcome h1 {
-            margin: 0;
-            font-size: 25px;
-        }
+    .account-number {
+      background: #102b5b;
+      padding: 10px 14px;
+      border-radius: 7px;
+      font-size: 14px;
+      color: #e6edff;
+    }
 
-        /* BALANCE */
+    .balance-label {
+      color: #9baecc;
+      font-size: 17px;
+      margin-bottom: 10px;
+    }
 
-        .balance-card {
-            background: linear-gradient(135deg, #111d40, #0b1533);
-            border: 1px solid rgba(212,175,55,0.25);
-            border-radius: 18px;
-            padding: 22px;
-            margin-bottom: 18px;
-        }
+    .balance {
+      font-size: 55px;
+      font-weight: bold;
+      margin-bottom: 35px;
+    }
 
-        .balance-label {
-            color: #aeb6c9;
-            font-size: 13px;
-            margin-bottom: 9px;
-        }
+    .currency {
+      color: #5fa1ff;
+      font-size: 29px;
+      margin-right: 5px;
+      font-weight: normal;
+    }
 
-        .balance {
-            font-size: 32px;
-            font-weight: bold;
-            margin-bottom: 18px;
-        }
+    /* BUTTONS */
+    .action-btn {
+      width: 100%;
+      height: 78px;
+      border-radius: 15px;
+      border: 1px solid #2861bd;
+      background: transparent;
+      color: white;
+      font-size: 19px;
+      font-weight: bold;
+      margin-top: 18px;
+      cursor: pointer;
+    }
 
-        .balance-note {
-            color: #7f899f;
-            font-size: 12px;
-        }
+    .action-btn.primary {
+      background: #2e68e8;
+      border-color: #2e68e8;
+    }
 
-        /* ACTION BUTTONS */
+    .action-btn:hover {
+      opacity: 0.9;
+    }
 
-        .actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 25px;
-        }
+    .action-icon {
+      font-size: 25px;
+      margin-right: 10px;
+    }
 
-        .action-btn {
-            padding: 15px 10px;
-            border-radius: 12px;
-            text-align: center;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 14px;
-        }
+    /* STAT CARDS */
+    .stat-card {
+      margin-top: 55px;
+      background: #10233d;
+      border: 1px solid #1c3c68;
+      border-radius: 24px;
+      padding: 32px 34px;
+    }
 
-        .deposit {
-            background: #D4AF37;
-            color: #060E25;
-        }
+    .stat-title {
+      color: #a3b3ca;
+      font-size: 17px;
+      margin-bottom: 25px;
+    }
 
-        .withdraw {
-            background: #0b1533;
-            color: #D4AF37;
-            border: 1px solid rgba(212,175,55,0.4);
-        }
+    .stat-value {
+      color: #5ea0ff;
+      font-size: 34px;
+      font-weight: bold;
+    }
 
-        /* STATS */
+    /* SIDEBAR OVERLAY */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      display: none;
+      z-index: 40;
+    }
 
-        .section-title {
-            font-size: 17px;
-            margin: 0 0 13px;
-        }
+    .overlay.active {
+      display: block;
+    }
 
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 25px;
-        }
+    /* SIDEBAR */
+    .sidebar {
+      position: fixed;
+      left: -340px;
+      top: 0;
+      width: 340px;
+      max-width: 88%;
+      height: 100vh;
+      background: #10233d;
+      border-right: 1px solid #21456f;
+      z-index: 50;
+      transition: left 0.25s ease;
+      overflow-y: auto;
+    }
 
-        .stat-card {
-            background: #0b1533;
-            border: 1px solid #1b2848;
-            border-radius: 14px;
-            padding: 17px;
-        }
+    .sidebar.active {
+      left: 0;
+    }
 
-        .stat-label {
-            color: #8f99ae;
-            font-size: 12px;
-            margin-bottom: 8px;
-        }
+    .sidebar-header {
+      height: 120px;
+      padding: 28px 25px;
+      border-bottom: 1px solid #1d3b60;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
 
-        .stat-value {
-            font-size: 18px;
-            font-weight: bold;
-        }
+    .logo-box {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      background: #4b8cf5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 23px;
+      font-weight: bold;
+    }
 
-        /* ACTIVE INVESTMENT */
+    .sidebar-brand {
+      font-size: 25px;
+      font-weight: bold;
+    }
 
-        .investment-card {
-            background: #0b1533;
-            border: 1px solid #1b2848;
-            border-radius: 15px;
-            padding: 18px;
-            margin-bottom: 25px;
-        }
+    .section-title {
+      color: #92a4bd;
+      font-size: 14px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      padding: 30px 25px 12px;
+    }
 
-        .investment-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 17px;
-        }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 17px 25px;
+      color: #d1dbea;
+      font-size: 18px;
+      cursor: pointer;
+      text-decoration: none;
+    }
 
-        .plan-name {
-            font-weight: bold;
-            font-size: 16px;
-        }
+    .nav-item:hover,
+    .nav-item.active {
+      background: #19355d;
+      color: #69a5ff;
+      margin: 0 10px;
+      border-radius: 12px;
+      padding-left: 15px;
+    }
 
-        .status {
-            color: #D4AF37;
-            background: rgba(212,175,55,0.08);
-            border: 1px solid rgba(212,175,55,0.2);
-            padding: 5px 9px;
-            border-radius: 20px;
-            font-size: 11px;
-        }
+    .nav-icon {
+      width: 30px;
+      text-align: center;
+      font-size: 22px;
+    }
 
-        .investment-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 9px 0;
-            border-bottom: 1px solid #182441;
-            font-size: 13px;
-        }
+    .logout {
+      color: #ff737d;
+    }
 
-        .investment-row:last-child {
-            border-bottom: none;
-        }
+    /* MOBILE */
+    @media (max-width: 480px) {
+      .main {
+        padding: 25px 16px 35px;
+      }
 
-        .investment-row span:first-child {
-            color: #8993a8;
-        }
+      .account-card {
+        padding: 27px 20px;
+      }
 
-        /* TRANSACTIONS */
+      .account-heading {
+        align-items: flex-start;
+      }
 
-        .transactions {
-            background: #0b1533;
-            border: 1px solid #1b2848;
-            border-radius: 15px;
-            padding: 18px;
-            margin-bottom: 25px;
-        }
+      .account-name {
+        font-size: 15px;
+      }
 
-        .empty {
-            text-align: center;
-            padding: 20px 5px;
-            color: #737e95;
-            font-size: 13px;
-        }
+      .account-number {
+        font-size: 12px;
+      }
 
-        /* MENU */
+      .balance {
+        font-size: 48px;
+      }
 
-        .menu {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 25px;
-        }
-
-        .menu-item {
-            text-decoration: none;
-            color: #c6ccda;
-            background: #0b1533;
-            border: 1px solid #1b2848;
-            border-radius: 12px;
-            padding: 14px 5px;
-            text-align: center;
-            font-size: 12px;
-        }
-
-        .menu-icon {
-            display: block;
-            color: #D4AF37;
-            font-size: 18px;
-            margin-bottom: 6px;
-        }
-
-        /* FOOTER */
-
-        .footer {
-            text-align: center;
-            color: #626d84;
-            font-size: 11px;
-            line-height: 1.6;
-        }
-    </style>
+      .stat-card {
+        margin-top: 32px;
+        padding: 28px 30px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="page">
+  <!-- TOP BAR -->
+  <header class="topbar">
 
-    <!-- HEADER -->
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+      ☰
+    </button>
 
-    <div class="header">
-        <div class="brand">Fortiva Capital</div>
-
-        <div class="profile">
-            U
-        </div>
+    <div class="brand">
+      Banking Portal
     </div>
 
-
-    <!-- WELCOME -->
-
-    <div class="welcome">
-        <p>Welcome back</p>
-        <h1>Your Dashboard</h1>
+    <div class="profile" id="profileLetter">
+      F
     </div>
 
+  </header>
 
-    <!-- BALANCE -->
 
-    <div class="balance-card">
+  <!-- MAIN DASHBOARD -->
+  <main class="main">
 
-        <div class="balance-label">
-            Available Balance
+    <section class="account-card">
+
+      <div class="account-heading">
+
+        <div class="account-name">
+          🛡️ &nbsp; PRIMARY INVESTMENT<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ACCOUNT
         </div>
 
-        <div class="balance">
-            KES 0.00
+        <div class="account-number" id="accountNumber">
+          ACC-00000108
         </div>
 
-        <div class="balance-note">
-            Your account balance will appear here.
-        </div>
+      </div>
 
-    </div>
+      <div class="balance-label">
+        Total Liquid Balance
+      </div>
 
+      <div class="balance">
+        <span class="currency">KES</span>
+        <span id="balance">0.00</span>
+      </div>
 
-    <!-- ACTIONS -->
+      <button class="action-btn primary" id="depositBtn">
+        <span class="action-icon">＋</span>
+        Deposit Funds
+      </button>
 
-    <div class="actions">
+      <button class="action-btn" id="withdrawBtn">
+        <span class="action-icon">↗</span>
+        Withdraw
+      </button>
 
-        <a href="deposit.html" class="action-btn deposit">
-            + Deposit
-        </a>
+      <button class="action-btn" id="investBtn">
+        <span class="action-icon">⌁</span>
+        Invest Funds
+      </button>
 
-        <a href="withdraw.html" class="action-btn withdraw">
-            Withdraw
-        </a>
-
-    </div>
-
-
-    <!-- ACCOUNT STATS -->
-
-    <h2 class="section-title">
-        Account Overview
-    </h2>
-
-    <div class="stats">
-
-        <div class="stat-card">
-            <div class="stat-label">
-                Total Invested
-            </div>
-
-            <div class="stat-value">
-                KES 0.00
-            </div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-label">
-                Investment Activity
-            </div>
-
-            <div class="stat-value">
-                0
-            </div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-label">
-                Account Status
-            </div>
-
-            <div class="stat-value">
-                Active
-            </div>
-        </div>
-
-        <div class="stat-card">
-            <div class="stat-label">
-                Currency
-            </div>
-
-            <div class="stat-value">
-                KES
-            </div>
-        </div>
-
-    </div>
+    </section>
 
 
-    <!-- ACTIVE INVESTMENT -->
+    <!-- INVESTED CAPITAL -->
+    <section class="stat-card">
 
-    <h2 class="section-title">
-        Active Investment
-    </h2>
+      <div class="stat-title">
+        Total Invested Capital
+      </div>
 
-    <div class="investment-card">
+      <div class="stat-value">
+        KES 0.00
+      </div>
 
-        <div class="investment-top">
+    </section>
 
-            <div class="plan-name">
-                No Active Plan
-            </div>
 
-            <div class="status">
-                Inactive
-            </div>
+    <!-- PROFIT -->
+    <section class="stat-card">
 
-        </div>
+      <div class="stat-title">
+        Lifetime Profit Generated
+      </div>
 
-        <div class="investment-row">
-            <span>Investment Amount</span>
-            <span>KES 0.00</span>
-        </div>
+      <div class="stat-value">
+        KES 0.00
+      </div>
 
-        <div class="investment-row">
-            <span>Plan</span>
-            <span>—</span>
-        </div>
+    </section>
 
-        <div class="investment-row">
-            <span>Status</span>
-            <span>—</span>
-        </div>
+  </main>
+
+
+  <!-- DARK OVERLAY -->
+  <div class="overlay" id="overlay"></div>
+
+
+  <!-- SIDE MENU -->
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-header">
+
+      <div class="logo-box">
+        F
+      </div>
+
+      <div class="sidebar-brand">
+        Fortiva
+      </div>
 
     </div>
 
 
-    <!-- TRANSACTIONS -->
-
-    <h2 class="section-title">
-        Recent Transactions
-    </h2>
-
-    <div class="transactions">
-
-        <div class="empty">
-            No transactions yet.<br>
-            Your deposits and account activity will appear here.
-        </div>
-
+    <div class="section-title">
+      FINANCIAL HUB
     </div>
 
+    <a class="nav-item active" href="dashboard.html">
+      <span class="nav-icon">▦</span>
+      <span>Overview</span>
+    </a>
 
-    <!-- QUICK MENU -->
+    <a class="nav-item" href="#">
+      <span class="nav-icon">↙</span>
+      <span>Deposit Funds</span>
+    </a>
 
-    <div class="menu">
+    <a class="nav-item" href="#">
+      <span class="nav-icon">↗</span>
+      <span>Fortiva Plans</span>
+    </a>
 
-        <a href="plans.html" class="menu-item">
-            <span class="menu-icon">◆</span>
-            Investment Plans
-        </a>
+    <a class="nav-item" href="#">
+      <span class="nav-icon">◴</span>
+      <span>My Plans</span>
+    </a>
 
-        <a href="support.html" class="menu-item">
-            <span class="menu-icon">?</span>
-            Support
-        </a>
+    <a class="nav-item" href="#">
+      <span class="nav-icon">☷</span>
+      <span>Transactions</span>
+    </a>
 
-        <a href="profile.html" class="menu-item">
-            <span class="menu-icon">●</span>
-            Profile
-        </a>
+    <a class="nav-item" href="#">
+      <span class="nav-icon">▣</span>
+      <span>Wallet</span>
+    </a>
 
+    <a class="nav-item" href="#">
+      <span class="nav-icon">↗</span>
+      <span>Withdraw</span>
+    </a>
+
+
+    <div class="section-title">
+      MANAGEMENT
     </div>
 
+    <a class="nav-item" href="#">
+      <span class="nav-icon">♢</span>
+      <span>Security &amp; Profile</span>
+    </a>
 
-    <!-- FOOTER -->
+    <a class="nav-item" href="#">
+      <span class="nav-icon">◎</span>
+      <span>Help Center</span>
+    </a>
 
-    <div class="footer">
-        Fortiva Capital<br>
-        Invest responsibly. Review all investment terms and risks before committing funds.<br><br>
-        © 2026 Fortiva Capital. All rights reserved.
-    </div>
+    <a class="nav-item" href="#">
+      <span class="nav-icon">□</span>
+      <span>Tickets</span>
+    </a>
 
-</div>
+    <a class="nav-item logout" href="#" id="logoutBtn">
+      <span class="nav-icon">⇥</span>
+      <span>Log Out</span>
+    </a>
+
+  </aside>
+
+
+  <script>
+
+    const menuBtn = document.getElementById("menuBtn");
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("overlay");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    // OPEN MENU
+    menuBtn.addEventListener("click", function () {
+      sidebar.classList.add("active");
+      overlay.classList.add("active");
+    });
+
+    // CLOSE MENU
+    overlay.addEventListener("click", function () {
+      sidebar.classList.remove("active");
+      overlay.classList.remove("active");
+    });
+
+    // LOGOUT
+    logoutBtn.addEventListener("click", function (event) {
+      event.preventDefault();
+
+      localStorage.removeItem("fortivaToken");
+      localStorage.removeItem("fortivaUser");
+
+      window.location.href = "login.html";
+    });
+
+    // LOAD USER INFORMATION
+    const savedUser = localStorage.getItem("fortivaUser");
+
+    if (savedUser) {
+
+      try {
+
+        const user = JSON.parse(savedUser);
+
+        if (user.fullName) {
+          document.getElementById("profileLetter").textContent =
+            user.fullName.charAt(0).toUpperCase();
+        }
+
+      } catch (error) {
+        console.log("Could not load user information");
+      }
+
+    }
+
+  </script>
 
 </body>
 </html>
