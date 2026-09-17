@@ -356,19 +356,70 @@
 
   <script>
 
-    function goToDeposit() {
-      window.location.href = "deposit.html";
+  const BACKEND_URL = "https://fortiva-backend-hvqy.onrender.com";
+
+  function getToken() {
+    return localStorage.getItem("token") ||
+           localStorage.getItem("fortivaToken");
+  }
+
+  function goToDeposit() {
+    window.location.href = "deposit.html";
+  }
+
+  function goToWithdraw() {
+    window.location.href = "withdrawal.html";
+  }
+
+  function goToDashboard() {
+    window.location.href = "dashboard.html";
+  }
+
+  async function loadWallet() {
+
+    const token = getToken();
+
+    if (!token) {
+      window.location.href = "login.html";
+      return;
     }
 
-    function goToWithdraw() {
-      window.location.href = "withdrawal.html";
-    }
+    try {
 
-    function goToDashboard() {
-      window.location.href = "dashboard.html";
-    }
+      const response = await fetch(`${BACKEND_URL}/api/me`, {
+        method: "GET",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
 
-  </script>
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Unable to load account");
+      }
+
+      const user = data.user || data;
+
+      const balance = Number(
+        user.balance ||
+        user.availableBalance ||
+        0
+      );
+
+      document.getElementById("availableBalance").textContent =
+        `KES ${balance.toFixed(2)}`;
+
+    } catch (error) {
+
+      console.error("Wallet error:", error);
+
+    }
+  }
+
+  loadWallet();
+
+</script>
 
 </body>
 </html>
