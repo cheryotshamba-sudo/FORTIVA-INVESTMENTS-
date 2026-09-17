@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#060E25">
+  <title>Fortiva Capital | Modern Investment Platform</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background-color: #060E25;
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 32px));
+      margin: auto;
+    }
+
+    /* HEADER */
+    header {
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: rgba(6,14,37,.96);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(12px);
+    }
+
+    .nav {
+      min-height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -.5px;
+    }
+
+    .brand span {
+      color: #D4AF37;
+    }
+
+    .menu {
+      font-size: 28px;
+      cursor: pointer;
+      line-height: 1;
+      color: #fff;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 70px 0 55px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 13px;
+      border: 1px solid rgba(212,175,55,.35);
+      border-radius: 30px;
+      color: #D4AF37;
+      background: rgba(212,175,55,.07);
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 22px;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      background: #27d17f;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .hero h1 {
+      font-size: clamp(38px, 10vw, 68px);
+      line-height: 1.05;
+      letter-spacing: -2px;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 span {
+      color: #D4AF37;
+    }
+
+    .hero p {
+      max-width: 720px;
+      margin: 0 auto;
+      color: #b8c1d8;
+      font-size: 16px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 50px;
+      padding: 0 24px;
+      border-radius: 10px;
+      font-weight: 800;
+      border: 1px solid transparent;
+      transition: .2s ease;
+    }
+
+    .btn-primary {
+      background: #D4AF37;
+      color: #060E25;
+    }
+
+    .btn-secondary {
+      border-color: rgba(255,255,255,.18);
+      background: rgba(255,255,255,.04);
+      color: #fff;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .checks {
+      display: flex;
+      justify-content: center;
+      gap: 22px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+      color: #cbd3e7;
+      font-size: 14px;
+    }
+
+    .checks span::first-letter {
+      color: #D4AF37;
+    }
+
+    /* OVERVIEW */
+    section {
+      padding: 65px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .eyebrow {
+      color: #D4AF37;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .section-title h2 {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+    .section-title p {
+      color: #9faac2;
+      max-width: 650px;
+      margin: auto;
+    }
+
+    .overview-card {
+      border: 1px solid rgba(255,255,255,.1);
+      background: linear-gradient(145deg, rgba(255,255,255,.06), rgba(255,255,255,.025));
+      border-radius: 18px;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 16px;
+    }
+
+    .overview-item {
+      padding: 14px;
+      border-radius: 12px;
+      background: rgba(0,0,0,.15);
+    }
+
+    .overview-item small {
+      display: block;
+      color: #8f9ab2;
+      margin-bottom: 4px;
+    }
+
+    .overview-item strong {
+      font-size: 18px;
+    }
+
+    .online {
+      color: #38d996;
+    }
+
+    /* FEATURES */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .feature {
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.035);
+      padding: 24px;
+      border-radius: 16px;
+    }
+
+    .feature-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 11px;
+      background: rgba(212,175,55,.1);
+      color: #D4AF37;
+      font-weight: 900;
+      margin-bottom: 17px;
+    }
+
+    .feature h3 {
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    .feature p {
+      color: #9faac2;
+      font-size: 14px;
+    }
+
+    /* PLANS */
+    .plans {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .plan {
+      position: relative;
+      border: 1px solid rgba(255,255,255,.1);
+      background: linear-gradient(160deg, rgba(255,255,255,.06), rgba(255,255,255,.025));
+      border-radius: 17px;
+      padding: 23px;
+      overflow: hidden;
+    }
+
+    .plan::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: #D4AF37;
+    }
+
+    .plan h3 {
+      font-size: 19px;
+      margin-bottom: 18px;
+    }
+
+    .plan-label {
+      color: #8995af;
+      font-size: 12px;
+      margin-bottom: 2px;
+    }
+
+    .amount {
+      font-size: 25px;
+      font-weight: 800;
+      color: #D4AF37;
+      margin-bottom: 18px;
+    }
+
+    .plan-description {
+      color: #aeb8cd;
+      min-height: 45px;
+      font-size: 13px;
+      margin-bottom: 17px;
+    }
+
+    .plan-info {
+      padding: 12px 0;
+      border-top: 1px solid rgba(255,255,255,.07);
+    }
+
+    .plan-info span {
+      display: block;
+      color: #8490a9;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+    }
+
+    .plan-info strong {
+      font-size: 14px;
+    }
+
+    .plan .btn {
+      width: 100%;
+      margin-top: 10px;
+      min-height: 44px;
+      font-size: 13px;
+    }
+
+    .risk {
+      margin-top: 25px;
+      padding: 17px;
+      border-left: 3px solid #D4AF37;
+      background: rgba(212,175,55,.05);
+      color: #aeb8cd;
+      font-size: 13px;
+      border-radius: 5px;
+    }
+
+    /* STEPS */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .step {
+      text-align: center;
+      padding: 22px;
+    }
+
+    .number {
+      width: 46px;
+      height: 46px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #D4AF37;
+      color: #060E25;
+      font-weight: 900;
+    }
+
+    .step h3 {
+      font-size: 17px;
+      margin-bottom: 7px;
+    }
+
+    .step p {
+      color: #9faac2;
+      font-size: 13px;
+    }
+
+    /* PAYMENT */
+    .payment-box {
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(255,255,255,.035);
+      border-radius: 18px;
+      padding: 28px;
+    }
+
+    .payment-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .payment-item {
+      padding: 18px;
+      border-radius: 12px;
+      background: rgba(0,0,0,.15);
+    }
+
+    .payment-item small {
+      color: #8f9ab2;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .payment-item strong {
+      font-size: 16px;
+    }
+
+    /* FAQ */
+    .faq {
+      max-width: 800px;
+      margin: auto;
+    }
+
+    details {
+      border: 1px solid rgba(255,255,255,.09);
+      background: rgba(255,255,255,.035);
+      border-radius: 11px;
+      margin-bottom: 10px;
+      padding: 18px 20px;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 700;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      content: "+";
+      color: #D4AF37;
+      font-size: 20px;
+    }
+
+    details[open] summary::after {
+      content: "−";
+    }
+
+    details p {
+      color: #9faac2;
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    /* CTA */
+    .cta {
+      text-align: center;
+      border: 1px solid rgba(212,175,55,.2);
+      background: linear-gradient(145deg, rgba(212,175,55,.08), rgba(255,255,255,.025));
+      border-radius: 22px;
+      padding: 50px 25px;
+    }
+
+    .cta h2 {
+      font-size: 31px;
+      margin-bottom: 12px;
+    }
+
+    .cta p {
+      color: #aeb8cd;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 45px 0 25px;
+      margin-top: 30px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 30px;
+      margin-bottom: 35px;
+    }
+
+    .footer-brand p {
+      color: #8e99b1;
+      font-size: 14px;
+      max-width: 350px;
+      margin-top: 10px;
+    }
+
+    footer h4 {
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    footer a {
+      display: block;
+      color: #8e99b1;
+      font-size: 13px;
+      margin: 7px 0;
+    }
+
+    footer a:hover {
+      color: #D4AF37;
+    }
+
+    .copyright {
+      border-top: 1px solid rgba(255,255,255,.07);
+      padding-top: 20px;
+      text-align: center;
+      color: #69758e;
+      font-size: 12px;
+    }
+
+    /* MOBILE */
+    @media (max-width: 900px) {
+      .plans {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .features {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .steps {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .overview-card,
+      .payment-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        width: min(100% - 24px, 520px);
+      }
+
+      .hero {
+        padding: 55px 0 45px;
+      }
+
+      .hero h1 {
+        font-size: 42px;
+      }
+
+      section {
+        padding: 48px 0;
+      }
+
+      .section-title h2 {
+        font-size: 26px;
+      }
+
+      .overview-card,
+      .features,
+      .plans,
+      .steps,
+      .payment-grid,
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .overview-card {
+        gap: 8px;
+      }
+
+      .overview-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .overview-item small {
+        margin: 0;
+      }
+
+      .plan-description {
+        min-height: auto;
+      }
+
+      .checks {
+        flex-direction: column;
+        gap: 7px;
+        align-items: center;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .actions .btn {
+        width: 100%;
+      }
+
+      .cta {
+        padding: 38px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container nav">
+      <a href="#" class="brand">Fortiva <span>Capital.</span></a>
+      <div class="menu" aria-label="Menu">☰</div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+
+        <div class="badge">
+          <span class="dot"></span>
+          Modern Investment Platform
+        </div>
+
+        <h1>Build Your <span>Financial Future.</span></h1>
+
+        <p>
+          Fortiva Capital provides a simple way to manage deposits,
+          explore investment plans, monitor active investments and track
+          your account activity from one secure dashboard.
+        </p>
+
+        <div class="actions">
+          <a href="register.html" class="btn btn-primary">Get Started</a>
+          <a href="login.html" class="btn btn-secondary">Sign In</a>
+        </div>
+
+        <div class="checks">
+          <span>✓ Simple account setup</span>
+          <span>✓ M-Pesa deposits</span>
+          <span>✓ Real-time account tracking</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PLATFORM OVERVIEW -->
+    <section>
+      <div class="container">
+
+        <div class="section-title">
+          <div class="eyebrow">Platform Overview</div>
+          <h2>Fortiva Capital</h2>
+        </div>
+
+        <div class="overview-card">
+
+          <div class="overview-item">
+            <small>Platform Status</small>
+            <strong class="online">● ONLINE</strong>
+          </div>
+
+          <div class="overview-item">
+            <small>Deposit</small>
+            <strong>M-Pesa</strong>
+          </div>
+
+          <div class="overview-item">
+            <small>Access</small>
+            <strong>24/7</strong>
+          </div>
+
+          <div class="overview-item">
+            <small>Dashboard</small>
+            <strong>Live</strong>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- WHY FORTIVA -->
+    <section>
+      <div class="container">
+
+        <div class="section-title">
+          <div class="eyebrow">Why Fortiva</div>
+          <h2>Everything you need in one platform</h2>
+          <p>
+            Built to provide a simple and organized experience for
+            managing your account, payments and investment activity.
+          </p>
+        </div>
+
+        <div class="features">
+
+          <div class="feature">
+            <div class="feature-icon">◈</div>
+            <h3>Simple Dashboard</h3>
+            <p>
+              View your balance, deposits, active investments,
+              transactions and recent account activity from one place.
+            </p>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">M</div>
+            <h3>M-Pesa Deposits</h3>
+            <p>
+              Deposit through supported M-Pesa payment processing
+              and track confirmed payments inside your account.
+            </p>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">↗</div>
+            <h3>Investment Plans</h3>
+            <p>
+              Explore different investment plan levels and review
+              the applicable amount and terms before investing.
+            </p>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">◎</div>
+            <h3>Activity Tracking</h3>
+            <p>
+              Review deposits, investment activity, completed plans
+              and withdrawal requests from your account history.
+            </p>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">✓</div>
+            <h3>Secure Access</h3>
+            <p>
+              Password-protected accounts and secure session management
+              help keep access restricted to the account owner.
+            </p>
+          </div>
+
+          <div class="feature">
+            <div class="feature-icon">?</div>
+            <h3>Customer Support</h3>
+            <p>
+              Submit support requests directly from your account
+              whenever you need help with deposits, investments or withdrawals.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- INVESTMENT OPTIONS -->
+    <section>
+      <div class="container">
+
+        <div class="section-title">
+          <div class="eyebrow">Investment Options</div>
+          <h2>Explore Fortiva Capital Plans</h2>
+          <p>
+            Select a plan based on the amount you want to allocate.
+            Review the applicable terms and conditions before investing.
+          </p>
+        </div>
+
+        <div class="plans">
+
+          <div class="plan">
+            <h3>Fortiva Nova</h3>
+            <div class="plan-label">Minimum Amount</div>
+            <div class="amount">KES 300</div>
+            <p class="plan-description">Entry-level investment option.</p>
+            <div class="plan-info">
+              <span>Platform Duration</span>
+              <strong>24 Hours</strong>
+            </div>
+            <div class="plan-info">
+              <span>Currency</span>
+              <strong>KES</strong>
+            </div>
+            <a href="register.html" class="btn btn-primary">Create Account</a>
+          </div>
+
+          <div class="plan">
+            <h3>Fortiva Flow</h3>
+            <div class="plan-label">Minimum Amount</div>
+            <div class="amount">KES 600</div>
+            <p class="plan-description">Growth-oriented investment option.</p>
+            <div class="plan-info">
+              <span>Platform Duration</span>
+              <strong>24 Hours</strong>
+            </div>
+            <div class="plan-info">
+              <span>Currency</span>
+              <strong>KES</strong>
+            </div>
+            <a href="register.html" class="btn btn-primary">Create Account</a>
+          </div>
+
+          <div class="plan">
+            <h3>Fortiva Apex</h3>
+            <div class="plan-label">Minimum Amount</div>
+            <div class="amount">KES 900</div>
+            <p class="plan-description">Balanced investment option.</p>
+            <div class="plan-info">
+              <span>Platform Duration</span>
+              <strong>24 Hours</strong>
+            </div>
+            <div class="plan-info">
+              <span>Currency</span>
+              <strong>KES</strong>
+            </div>
+            <a href="register.html" class="btn btn-primary">Create Account</a>
+          </div>
+
+          <div class="plan">
+            <h3>Fortiva Prime</h3>
+            <div class="plan-label">Minimum Amount</div>
+            <div class="amount">KES 1,500</div>
+            <p class="plan-description">Premium investment option.</p>
+            <div class="plan-info">
+              <span>Platform Duration</span>
+              <strong>24 Hours</strong>
+            </div>
+            <div class="plan-info">
+              <span>Currency</span>
+              <strong>KES</strong>
+            </div>
+            <a href="register.html" class="btn btn-primary">Create Account</a>
+          </div>
+
+          <div class="plan">
+            <h3>Fortiva Vertex</h3>
+            <div class="plan-label">Minimum Amount</div>
+            <div class="amount">KES 2,500</div>
+            <p class="plan-description">Advanced investment option.</p>
+            <div class="plan-info">
+              <span>Platform Duration</span>
+              <strong>24 Hours</strong>
+            </div>
+            <div class="plan-info">
+              <span>Currency</span>
+              <strong>KES</strong>
+            </div>
+            <a href="register.html" class="btn btn-primary">Create Account</a>
+          </div>
+
+          <div class="plan">
+            <h3>Fortiva Summit</h3>
+            <div class="plan-label">Minimum Amount</div>
+            <div class="amount">KES 3,600</div>
+            <p class="plan-description">Advanced multi-market investment option.</p>
+            <div class="plan-info">
+              <span>Platform Duration</span>
+              <strong>24 Hours</strong>
+            </div>
+            <div class="plan-info">
+              <span>Currency</span>
+              <strong>KES</strong>
+            </div>
+            <a href="register.html" class="btn btn-primary">Create Account</a>
+          </div>
+
+          <div class="plan">
+            <h3>Fortiva Sovereign</h3>
+            <div class="plan-label">Minimum Amount</div>
+            <div class="amount">KES 5,000</div>
+            <p class="plan-description">Premium multi-market investment option.</p>
+            <div class="plan-info">
+              <span>Platform Duration</span>
+              <strong>24 Hours</strong>
+            </div>
+            <div class="plan-info">
+              <span>Currency</span>
+              <strong>KES</strong>
+            </div>
+            <a href="register.html" class="btn btn-primary">Create Account</a>
+          </div>
+
+          <div class="plan">
+            <h3>Fortiva Infinity</h3>
+            <div class="plan-label">Minimum Amount</div>
+            <div class="amount">KES 10,000</div>
+            <p class="plan-description">Elite investment option.</p>
+            <div class="plan-info">
+              <span>Platform Duration</span>
+              <strong>24 Hours</strong>
+            </div>
+            <div class="plan-info">
+              <span>Currency</span>
+              <strong>KES</strong>
+            </div>
+            <a href="register.html" class="btn btn-primary">Create Account</a>
+          </div>
+
+        </div>
+
+        <div class="risk">
+          <strong>Investment Risk Disclosure:</strong>
+          Investment activity carries financial risk. Investment terms,
+          fees, payout conditions and applicable risks should be reviewed
+          carefully before funds are committed. Only use funds you can
+          afford to risk.
+        </div>
+
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section>
+      <div class="container">
+
+        <div class="section-title">
+          <div class="eyebrow">Getting Started</div>
+          <h2>How Fortiva Capital Works</h2>
+        </div>
+
+        <div class="steps">
+
+          <div class="step">
+            <div class="number">1</div>
+            <h3>Create Your Account</h3>
+            <p>
+              Register your Fortiva Capital account and sign in securely.
+            </p>
+          </div>
+
+          <div class="step">
+            <div class="number">2</div>
+            <h3>Fund Your Wallet</h3>
+            <p>
+              Use the deposit page to initiate an M-Pesa payment to your account.
+            </p>
+          </div>
+
+          <div class="step">
+            <div class="number">3</div>
+            <h3>Choose a Plan</h3>
+            <p>
+              Browse available plans and select the investment option you prefer.
+            </p>
+          </div>
+
+          <div class="step">
+            <div class="number">4</div>
+            <h3>Track Activity</h3>
+            <p>
+              Monitor investment status, transactions and wallet activity.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PAYMENTS -->
+    <section>
+      <div class="container">
+
+        <div class="section-title">
+          <div class="eyebrow">Payments</div>
+          <h2>Convenient M-Pesa Deposits</h2>
+          <p>
+            Fortiva Capital supports M-Pesa payment requests for deposits.
+            Successful payments are recorded after confirmation from the
+            payment provider.
+          </p>
+        </div>
+
+        <div class="payment-box">
+          <div class="payment-grid">
+
+            <div class="payment-item">
+              <small>Payment Method</small>
+              <strong>M-Pesa</strong>
+            </div>
+
+            <div class="payment-item">
+              <small>Deposit Tracking</small>
+              <strong>Automatic</strong>
+            </div>
+
+            <div class="payment-item">
+              <small>Account Balance</small>
+              <strong>Updated After Confirmation</strong>
+            </div>
+
+            <div class="payment-item">
+              <small>Support</small>
+              <strong>Available</strong>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section>
+      <div class="container">
+
+        <div class="section-title">
+          <div class="eyebrow">Help Center</div>
+          <h2>Frequently Asked Questions</h2>
+        </div>
+
+        <div class="faq">
+
+          <details>
+            <summary>How do I create an account?</summary>
+            <p>
+              Select Create Account and complete the registration process.
+            </p>
+          </details>
+
+          <details>
+            <summary>How do I deposit funds?</summary>
+            <p>
+              Sign in to your account and use the deposit section to
+              initiate a supported M-Pesa payment.
+            </p>
+          </details>
+
+          <details>
+            <summary>Where can I see my investments?</summary>
+            <p>
+              Your active investments and related activity can be viewed
+              from your account dashboard.
+            </p>
+          </details>
+
+          <details>
+            <summary>How do I request a withdrawal?</summary>
+            <p>
+              Sign in and use the withdrawal section when your account
+              is eligible for a withdrawal.
+            </p>
+          </details>
+
+          <details>
+            <summary>How can I contact support?</summary>
+            <p>
+              Use the support section of your account to submit a support request.
+            </p>
+          </details>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section>
+      <div class="container">
+
+        <div class="cta">
+          <h2>Ready to Get Started?</h2>
+
+          <p>
+            Create your Fortiva Capital account and access your dashboard,
+            wallet, deposits, investment plans and transaction history
+            from one place.
+          </p>
+
+          <div class="actions">
+            <a href="register.html" class="btn btn-primary">Create Account</a>
+            <a href="login.html" class="btn btn-secondary">Sign In</a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+          <div class="brand">Fortiva <span>Capital.</span></div>
+          <p>
+            A modern digital platform for managing account balances,
+            deposits, investment activity and transactions.
+          </p>
+        </div>
+
+        <div>
+          <h4>Platform</h4>
+          <a href="#plans">Investment Plans</a>
+          <a href="#how-it-works">How It Works</a>
+          <a href="#faq">FAQ</a>
+        </div>
+
+        <div>
+          <h4>Account</h4>
+          <a href="login.html">Login</a>
+          <a href="register.html">Register</a>
+          <a href="dashboard.html">Dashboard</a>
+        </div>
+
+        <div>
+          <h4>Support</h4>
+          <a href="support.html">Support Center</a>
+          <a href="support.html">Help</a>
+        </div>
+
+      </div>
+
+      <div class="copyright">
+        © 2026 Fortiva Capital. All rights reserved.<br>
+        Invest responsibly.
+      </div>
+
+    </div>
+  </footer>
+
+</body>
+</html>
