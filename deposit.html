@@ -1,34 +1,193 @@
-        id="phone"
-        type="tel"
-        placeholder="07XXXXXXXX"
-      >
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-      <button
-        type="button"
-        onclick="testButton()">
-        Deposit Funds
-      </button>
+  <title>Deposit Funds - Fortiva Capital</title>
 
-      <div id="result">
-        BUTTON IS WORKING
-      </div>
-
-    </div>
-
-  </div>
-
-  <script>
-
-    function testButton() {
-
-      document.getElementById("result").style.display = "block";
-
-      document.getElementById("result").textContent =
-        "BUTTON IS WORKING";
-
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-  </script>
+    body {
+      font-family: Arial, sans-serif;
+      background: #07152f;
+      color: #ffffff;
+      min-height: 100vh;
+    }
 
-</body>
-</html>
+    .topbar {
+      height: 60px;
+      background: #0b1d3d;
+      border-bottom: 1px solid #18345f;
+      display: flex;
+      align-items: center;
+      padding: 0 18px;
+    }
+
+    .back {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+      margin: auto;
+      padding: 25px 18px 40px;
+    }
+
+    h1 {
+      font-size: 25px;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #aab7cc;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    .card {
+      background: #0b1d3d;
+      border: 1px solid #18345f;
+      border-radius: 14px;
+      padding: 20px;
+    }
+
+    label {
+      display: block;
+      color: #dce5f5;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      height: 50px;
+      border: 1px solid #29466f;
+      border-radius: 9px;
+      background: #07152f;
+      color: #ffffff;
+      padding: 0 14px;
+      font-size: 16px;
+      outline: none;
+      margin-bottom: 18px;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: #27ae60;
+    }
+
+    .deposit-btn {
+      width: 100%;
+      height: 52px;
+      border: none;
+      border-radius: 9px;
+      background: #27ae60;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+
+    .deposit-btn:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      color: #b9c7dc;
+      font-size: 14px;
+      margin-top: 14px;
+    }
+
+    .message {
+      display: none;
+      margin-top: 16px;
+      padding: 13px;
+      border-radius: 9px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .message.success {
+      display: block;
+      background: #103d29;
+      border: 1px solid #1f7a4d;
+      color: #b9f5d4;
+    }
+
+    .message.error {
+      display: block;
+      background: #421b1b;
+      border: 1px solid #8c3030;
+      color: #ffd0d0;
+    }
+
+    .note {
+      text-align: center;
+      color: #8fa2c0;
+      font-size: 12px;
+      line-height: 1.5;
+      margin-top: 18px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar">
+    <a href="dashboard.html" class="back">
+      ← Dashboard
+    </a>
+  </div>
+
+  <div class="container">
+
+    <h1>Deposit Funds</h1>
+
+    <p class="subtitle">
+      Add funds to your Fortiva Capital account using M-Pesa.
+    </p>
+
+    <div class="card">
+
+      <label for="amount">
+        Deposit Amount (KES)
+      </label>
+
+      <input
+        type="number"
+        id="amount"
+        placeholder="Enter amount"
+        min="1"
+        inputmode="numeric"
+      >
+
+      <label for="paymentMethod">
+        Payment Method
+      </label>
+
+      <select id="paymentMethod">
+        <option value="mpesa">
+          M-Pesa
+        </option>
+      </select>
+
+      <label for="phone">
+        M-Pesa Phone Number
+      </label>
+
+     
