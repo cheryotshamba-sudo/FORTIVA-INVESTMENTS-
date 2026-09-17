@@ -1,7 +1,12 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">  <title>Fortiva Capital - Deposit</title>  <style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Fortiva Capital - Deposit</title>
+
+  <style>
     * {
       box-sizing: border-box;
       margin: 0;
@@ -136,61 +141,76 @@
       font-size: 14px;
       line-height: 1.5;
     }
-  </style></head><body>  <header class="topbar">
+  </style>
+</head>
+
+<body>
+
+  <header class="topbar">
     <a class="back" href="dashboard.html">‹</a>
     <div class="title">Deposit Funds</div>
-  </header>  <main class="main"><div class="card">
+  </header>
 
-  <h1>Deposit Funds</h1>
+  <main class="main">
 
-  <p class="description">
-    Enter the amount you want to deposit and use your M-Pesa
-    phone number to make the payment.
-  </p>
+    <div class="card">
 
-  <label for="amount">Amount (KES)</label>
+      <h1>Deposit Funds</h1>
 
-  <input
-    type="number"
-    id="amount"
-    placeholder="Enter amount"
-    min="1"
-    inputmode="numeric"
-  >
+      <p class="description">
+        Enter the amount you want to deposit and use your M-Pesa
+        phone number to make the payment.
+      </p>
 
-  <label for="method">Payment Method</label>
+      <label for="amount">Amount (KES)</label>
 
-  <select id="method">
-    <option value="mpesa">M-Pesa</option>
-  </select>
+      <input
+        type="number"
+        id="amount"
+        placeholder="Enter amount"
+        min="1"
+        inputmode="numeric"
+      >
 
-  <label for="phone">M-Pesa Phone Number</label>
+      <label for="method">Payment Method</label>
 
-  <input
-    type="tel"
-    id="phone"
-    placeholder="07XXXXXXXX"
-    inputmode="tel"
-  >
+      <select id="method">
+        <option value="mpesa">M-Pesa</option>
+      </select>
 
-  <button class="button" id="continueBtn">
-    Deposit Funds
-  </button>
+      <label for="phone">M-Pesa Phone Number</label>
 
-  <div id="message" class="message"></div>
+      <input
+        type="tel"
+        id="phone"
+        placeholder="07XXXXXXXX"
+        inputmode="tel"
+      >
 
-  <div class="notice">
-    Your payment is processed securely through M-Pesa.
-    Your account balance is updated only after the payment
-    has been confirmed.
-  </div>
+      <button
+        type="button"
+        class="button"
+        id="continueBtn">
+        Deposit Funds
+      </button>
 
-</div>
+      <div id="message" class="message"></div>
 
-  </main>  <script>
+      <div class="notice">
+        Your payment is processed securely through M-Pesa.
+        Your account balance is updated only after the payment
+        has been confirmed.
+      </div>
+
+    </div>
+
+  </main>
+
+  <script>
 
     const BACKEND_URL =
       "https://fortiva-backend-hvqy.onrender.com";
+
 
     const continueBtn =
       document.getElementById("continueBtn");
@@ -202,7 +222,9 @@
     function showMessage(text, type) {
 
       message.textContent = text;
-      message.className = "message " + type;
+
+      message.className =
+        "message " + type;
 
     }
 
@@ -231,209 +253,183 @@
     }
 
 
-    continueBtn.addEventListener(
-      "click",
-      async function () {
+    continueBtn.addEventListener("click", async function () {
 
-        const amount =
-          document
-            .getElementById("amount")
-            .value
-            .trim();
+      const amountInput =
+        document.getElementById("amount");
 
-        const method =
-          document
-            .getElementById("method")
-            .value;
+      const methodInput =
+        document.getElementById("method");
 
-        const phoneInput =
-          document
-            .getElementById("phone")
-            .value
-            .trim();
+      const phoneInput =
+        document.getElementById("phone");
 
 
-        message.className =
-          "message";
+      const amount =
+        amountInput.value.trim();
 
-        message.textContent =
-          "";
+      const method =
+        methodInput.value;
+
+      const enteredPhone =
+        phoneInput.value.trim();
 
 
-        if (!amount ||
-            Number(amount) <= 0) {
+      message.className = "message";
+      message.textContent = "";
 
-          showMessage(
-            "Please enter a valid deposit amount.",
-            "error"
+
+      if (!amount || Number(amount) <= 0) {
+
+        showMessage(
+          "Please enter a valid deposit amount.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      if (!enteredPhone) {
+
+        showMessage(
+          "Please enter your M-Pesa phone number.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      const phone =
+        normalizePhone(enteredPhone);
+
+
+      if (!/^254(7|1)\d{8}$/.test(phone)) {
+
+        showMessage(
+          "Please enter a valid Kenyan M-Pesa phone number.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      /*
+        Accept both the new token name
+        and the older token name.
+      */
+
+      const token =
+        localStorage.getItem("token") ||
+        localStorage.getItem("fortivaToken");
+
+
+      if (!token) {
+
+        showMessage(
+          "Your login session has expired. Please log in again.",
+          "error"
+        );
+
+        return;
+      }
+
+
+      continueBtn.disabled = true;
+
+      continueBtn.textContent =
+        "Initiating payment...";
+
+
+      try {
+
+        const response =
+          await fetch(
+            BACKEND_URL + "/api/deposit",
+            {
+              method: "POST",
+
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
+              },
+
+              body: JSON.stringify({
+                amount: Number(amount),
+                method: method,
+                phone: phone
+              })
+            }
           );
 
-          return;
-        }
+
+        const responseText =
+          await response.text();
 
 
-        if (!phoneInput) {
-
-          showMessage(
-            "Please enter your M-Pesa phone number.",
-            "error"
-          );
-
-          return;
-        }
-
-
-        const phone =
-          normalizePhone(phoneInput);
-
-
-        if (!/^254(7|1)\d{8}$/.test(phone)) {
-
-          showMessage(
-            "Please enter a valid Kenyan M-Pesa phone number.",
-            "error"
-          );
-
-          return;
-        }
-
-
-        /*
-          Get the JWT created during login.
-        */
-
-        const token =
-          localStorage.getItem("token");
-
-
-        if (!token) {
-
-          showMessage(
-            "Your login session has expired. Please log in again.",
-            "error"
-          );
-
-          return;
-        }
-
-
-        continueBtn.disabled =
-          true;
-
-        continueBtn.textContent =
-          "Initiating payment...";
-
+        let data = {};
 
         try {
 
-          const response =
-            await fetch(
-              BACKEND_URL +
-              "/api/deposit",
-              {
+          data =
+            JSON.parse(responseText);
 
-                method:
-                  "POST",
+        } catch {
 
-                headers: {
-
-                  "Content-Type":
-                    "application/json",
-
-                  "Authorization":
-                    "Bearer " +
-                    token
-
-                },
-
-                body:
-                  JSON.stringify({
-
-                    amount:
-                      Number(amount),
-
-                    method:
-                      method,
-
-                    phone:
-                      phone
-
-                  })
-
-              }
-            );
-
-
-          let data;
-
-
-          try {
-
-            data =
-              await response.json();
-
-          } catch {
-
-            throw new Error(
-              "The payment server returned an invalid response."
-            );
-
-          }
-
-
-          if (!response.ok) {
-
-            throw new Error(
-
-              data.message ||
-              data.error ||
-              "Payment initiation failed."
-
-            );
-
-          }
-
-
-          showMessage(
-
-            data.message ||
-            "Payment request sent. Please check your phone and complete the M-Pesa payment.",
-
-            "success"
-
-          );
-
-
-        } catch (error) {
-
-          console.error(
-            "Deposit error:",
-            error
-          );
-
-
-          showMessage(
-
-            error.message ||
-            "Unable to connect to the payment server.",
-
-            "error"
-
-          );
-
-
-        } finally {
-
-          continueBtn.disabled =
-            false;
-
-          continueBtn.textContent =
-            "Deposit Funds";
+          data = {
+            message: responseText
+          };
 
         }
 
-      }
-    );
 
-  </script></body>
+        if (!response.ok) {
+
+          throw new Error(
+            data.message ||
+            data.error ||
+            "Payment initiation failed."
+          );
+
+        }
+
+
+        showMessage(
+          data.message ||
+          "Payment request sent. Please check your phone and complete the M-Pesa payment.",
+          "success"
+        );
+
+
+      } catch (error) {
+
+        console.error(
+          "Deposit error:",
+          error
+        );
+
+
+        showMessage(
+          error.message ||
+          "Unable to connect to the payment server.",
+          "error"
+        );
+
+
+      } finally {
+
+        continueBtn.disabled = false;
+
+        continueBtn.textContent =
+          "Deposit Funds";
+
+      }
+
+    });
+
+  </script>
+
+</body>
 </html>
