@@ -19,7 +19,6 @@
       min-height: 100vh;
     }
 
-    /* TOP BAR */
     .topbar {
       height: 78px;
       background: #10233d;
@@ -61,16 +60,15 @@
       justify-content: center;
       font-size: 20px;
       font-weight: bold;
+      cursor: pointer;
     }
 
-    /* MAIN */
     .main {
       padding: 34px 20px 45px;
       max-width: 700px;
       margin: auto;
     }
 
-    /* ACCOUNT CARD */
     .account-card {
       background: linear-gradient(135deg, #10244a, #173d91);
       border: 1px solid #2861d5;
@@ -121,7 +119,6 @@
       font-weight: normal;
     }
 
-    /* BUTTONS */
     .action-btn {
       width: 100%;
       height: 78px;
@@ -144,12 +141,15 @@
       opacity: 0.9;
     }
 
+    .action-btn:active {
+      transform: scale(0.98);
+    }
+
     .action-icon {
       font-size: 25px;
       margin-right: 10px;
     }
 
-    /* STAT CARDS */
     .stat-card {
       margin-top: 55px;
       background: #10233d;
@@ -170,7 +170,6 @@
       font-weight: bold;
     }
 
-    /* SIDEBAR OVERLAY */
     .overlay {
       position: fixed;
       inset: 0;
@@ -183,7 +182,6 @@
       display: block;
     }
 
-    /* SIDEBAR */
     .sidebar {
       position: fixed;
       left: -340px;
@@ -266,8 +264,8 @@
       color: #ff737d;
     }
 
-    /* MOBILE */
     @media (max-width: 480px) {
+
       .main {
         padding: 25px 16px 35px;
       }
@@ -296,16 +294,20 @@
         margin-top: 32px;
         padding: 28px 30px;
       }
+
     }
   </style>
 </head>
 
 <body>
 
-  <!-- TOP BAR -->
   <header class="topbar">
 
-    <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+    <button
+      class="menu-btn"
+      id="menuBtn"
+      type="button"
+      aria-label="Open menu">
       ☰
     </button>
 
@@ -320,7 +322,6 @@
   </header>
 
 
-  <!-- MAIN DASHBOARD -->
   <main class="main">
 
     <section class="account-card">
@@ -347,25 +348,42 @@
         <span id="balance">0.00</span>
       </div>
 
-      <button class="action-btn primary" id="depositBtn">
+
+      <button
+        class="action-btn primary"
+        id="depositBtn"
+        type="button">
+
         <span class="action-icon">＋</span>
         Deposit Funds
+
       </button>
 
-      <button class="action-btn" id="withdrawBtn">
+
+      <button
+        class="action-btn"
+        id="withdrawBtn"
+        type="button">
+
         <span class="action-icon">↗</span>
         Withdraw
+
       </button>
 
-      <button class="action-btn" id="investBtn">
+
+      <button
+        class="action-btn"
+        id="investBtn"
+        type="button">
+
         <span class="action-icon">⌁</span>
         Invest Funds
+
       </button>
 
     </section>
 
 
-    <!-- INVESTED CAPITAL -->
     <section class="stat-card">
 
       <div class="stat-title">
@@ -379,7 +397,6 @@
     </section>
 
 
-    <!-- PROFIT -->
     <section class="stat-card">
 
       <div class="stat-title">
@@ -395,11 +412,9 @@
   </main>
 
 
-  <!-- DARK OVERLAY -->
   <div class="overlay" id="overlay"></div>
 
 
-  <!-- SIDE MENU -->
   <aside class="sidebar" id="sidebar">
 
     <div class="sidebar-header">
@@ -419,37 +434,44 @@
       FINANCIAL HUB
     </div>
 
+
     <a class="nav-item active" href="dashboard.html">
       <span class="nav-icon">▦</span>
       <span>Overview</span>
     </a>
 
-    <a class="nav-item" href="#">
+
+    <a class="nav-item" href="deposit.html">
       <span class="nav-icon">↙</span>
       <span>Deposit Funds</span>
     </a>
 
-    <a class="nav-item" href="#">
+
+    <a class="nav-item" href="plans.html">
       <span class="nav-icon">↗</span>
       <span>Fortiva Plans</span>
     </a>
 
-    <a class="nav-item" href="#">
+
+    <a class="nav-item" href="my-plans.html">
       <span class="nav-icon">◴</span>
       <span>My Plans</span>
     </a>
 
-    <a class="nav-item" href="#">
+
+    <a class="nav-item" href="transactions.html">
       <span class="nav-icon">☷</span>
       <span>Transactions</span>
     </a>
 
-    <a class="nav-item" href="#">
+
+    <a class="nav-item" href="wallet.html">
       <span class="nav-icon">▣</span>
       <span>Wallet</span>
     </a>
 
-    <a class="nav-item" href="#">
+
+    <a class="nav-item" href="withdraw.html">
       <span class="nav-icon">↗</span>
       <span>Withdraw</span>
     </a>
@@ -459,22 +481,26 @@
       MANAGEMENT
     </div>
 
-    <a class="nav-item" href="#">
+
+    <a class="nav-item" href="profile.html">
       <span class="nav-icon">♢</span>
       <span>Security &amp; Profile</span>
     </a>
 
-    <a class="nav-item" href="#">
+
+    <a class="nav-item" href="help.html">
       <span class="nav-icon">◎</span>
       <span>Help Center</span>
     </a>
 
-    <a class="nav-item" href="#">
+
+    <a class="nav-item" href="tickets.html">
       <span class="nav-icon">□</span>
       <span>Tickets</span>
     </a>
 
-    <a class="nav-item logout" href="#" id="logoutBtn">
+
+    <a class="nav-item logout" href="login.html" id="logoutBtn">
       <span class="nav-icon">⇥</span>
       <span>Log Out</span>
     </a>
@@ -484,49 +510,124 @@
 
   <script>
 
-    const menuBtn = document.getElementById("menuBtn");
-    const sidebar = document.getElementById("sidebar");
-    const overlay = document.getElementById("overlay");
-    const logoutBtn = document.getElementById("logoutBtn");
+    const menuBtn =
+      document.getElementById("menuBtn");
 
-    // OPEN MENU
+    const sidebar =
+      document.getElementById("sidebar");
+
+    const overlay =
+      document.getElementById("overlay");
+
+    const logoutBtn =
+      document.getElementById("logoutBtn");
+
+
+    /*
+      DASHBOARD BUTTONS
+    */
+
+    document
+      .getElementById("depositBtn")
+      .addEventListener("click", function () {
+
+        window.location.href = "deposit.html";
+
+      });
+
+
+    document
+      .getElementById("withdrawBtn")
+      .addEventListener("click", function () {
+
+        window.location.href = "withdraw.html";
+
+      });
+
+
+    document
+      .getElementById("investBtn")
+      .addEventListener("click", function () {
+
+        window.location.href = "plans.html";
+
+      });
+
+
+    /*
+      OPEN MENU
+    */
+
     menuBtn.addEventListener("click", function () {
+
       sidebar.classList.add("active");
+
       overlay.classList.add("active");
+
     });
 
-    // CLOSE MENU
+
+    /*
+      CLOSE MENU
+    */
+
     overlay.addEventListener("click", function () {
+
       sidebar.classList.remove("active");
+
       overlay.classList.remove("active");
+
     });
 
-    // LOGOUT
-    logoutBtn.addEventListener("click", function (event) {
-      event.preventDefault();
+
+    /*
+      LOGOUT
+    */
+
+    logoutBtn.addEventListener("click", function () {
+
+      localStorage.removeItem("token");
 
       localStorage.removeItem("fortivaToken");
+
       localStorage.removeItem("fortivaUser");
 
-      window.location.href = "login.html";
     });
 
-    // LOAD USER INFORMATION
-    const savedUser = localStorage.getItem("fortivaUser");
+
+    /*
+      LOAD USER INFORMATION
+    */
+
+    const savedUser =
+      localStorage.getItem("fortivaUser");
+
 
     if (savedUser) {
 
       try {
 
-        const user = JSON.parse(savedUser);
+        const user =
+          JSON.parse(savedUser);
+
 
         if (user.fullName) {
-          document.getElementById("profileLetter").textContent =
-            user.fullName.charAt(0).toUpperCase();
+
+          document
+            .getElementById("profileLetter")
+            .textContent =
+            user.fullName
+              .charAt(0)
+              .toUpperCase();
+
         }
 
       } catch (error) {
-        console.log("Could not load user information");
+
+        console.log(
+          "Could not load user information"
+        );
+
       }
 
     }
