@@ -1,332 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign In | Fortiva Capital</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fortiva Capital - Login</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        body {
-            margin: 0;
-            background-color: #060E25;
-            color: #fff;
-            font-family: Arial, sans-serif;
-            min-height: 100vh;
-        }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fa;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
 
-        .page {
-            width: 100%;
-            max-width: 480px;
-            margin: auto;
-            min-height: 100vh;
-            padding: 20px;
-        }
+    .login-container {
+      width: 100%;
+      max-width: 400px;
+      background: white;
+      padding: 30px 25px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    }
 
-        .top {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 45px;
-        }
+    h1 {
+      text-align: center;
+      margin-bottom: 8px;
+      color: #111;
+    }
 
-        .back {
-            width: 42px;
-            height: 42px;
-            border: 1px solid rgba(255,255,255,0.15);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            text-decoration: none;
-            font-size: 22px;
-        }
+    .subtitle {
+      text-align: center;
+      color: #666;
+      margin-bottom: 25px;
+      font-size: 14px;
+    }
 
-        .brand {
-            font-size: 20px;
-            font-weight: bold;
-            color: #D4AF37;
-        }
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: bold;
+      color: #333;
+    }
 
-        .welcome {
-            margin-bottom: 30px;
-        }
+    input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      margin-bottom: 18px;
+      outline: none;
+    }
 
-        .welcome h1 {
-            font-size: 30px;
-            margin: 0 0 10px;
-        }
+    input:focus {
+      border-color: #006b3f;
+    }
 
-        .welcome p {
-            margin: 0;
-            color: #aeb6c9;
-            line-height: 1.6;
-            font-size: 15px;
-        }
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      background: #006b3f;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+    button:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
-            color: #dce1ec;
-        }
+    .message {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+      display: none;
+    }
 
-        input {
-            width: 100%;
-            padding: 15px;
-            border-radius: 12px;
-            border: 1px solid #263252;
-            background: #0b1533;
-            color: #fff;
-            font-size: 15px;
-            outline: none;
-        }
+    .register {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 14px;
+      color: #666;
+    }
 
-        input:focus {
-            border-color: #D4AF37;
-        }
-
-        input::placeholder {
-            color: #69738b;
-        }
-
-        .password-box {
-            position: relative;
-        }
-
-        .password-box input {
-            padding-right: 65px;
-        }
-
-        .show-password {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            border: none;
-            background: transparent;
-            color: #D4AF37;
-            cursor: pointer;
-            font-size: 13px;
-        }
-
-        .forgot {
-            display: block;
-            text-align: right;
-            margin-top: -8px;
-            margin-bottom: 25px;
-            color: #D4AF37;
-            text-decoration: none;
-            font-size: 13px;
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 16px;
-            border: none;
-            border-radius: 12px;
-            background: #D4AF37;
-            color: #060E25;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .login-btn:active {
-            transform: scale(0.99);
-        }
-
-        .register {
-            text-align: center;
-            margin-top: 25px;
-            color: #aeb6c9;
-            font-size: 14px;
-        }
-
-        .register a {
-            color: #D4AF37;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .security {
-            margin-top: 35px;
-            padding: 16px;
-            border: 1px solid rgba(212,175,55,0.2);
-            background: rgba(212,175,55,0.05);
-            border-radius: 12px;
-            color: #bfc6d5;
-            font-size: 13px;
-            line-height: 1.6;
-        }
-
-        .security strong {
-            color: #D4AF37;
-        }
-
-        .footer {
-            text-align: center;
-            color: #69738b;
-            font-size: 12px;
-            margin-top: 35px;
-            padding-bottom: 20px;
-        }
-    </style>
+    .register a {
+      color: #006b3f;
+      font-weight: bold;
+      text-decoration: none;
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="page">
+  <div class="login-container">
 
-    <div class="top">
-        <a href="index.html" class="back">‹</a>
-        <div class="brand">Fortiva Capital</div>
-    </div>
+    <h1>Welcome Back</h1>
 
-    <div class="welcome">
-        <h1>Welcome Back</h1>
-        <p>
-            Sign in to access your Fortiva Capital account,
-            view your balance and track your investment activity.
-        </p>
-    </div>
+    <p class="subtitle">
+      Login to your Fortiva Capital account
+    </p>
 
     <form id="loginForm">
 
-        <div class="form-group">
-            <label for="phone">Phone Number</label>
-            <input
-                type="tel"
-                id="phone"
-                placeholder="Enter your phone number"
-                required
-            >
-        </div>
+      <label for="identifier">
+        Phone Number or Email
+      </label>
 
-        <div class="form-group">
-            <label for="password">Password</label>
+      <input
+        type="text"
+        id="identifier"
+        placeholder="Enter phone number or email"
+        autocomplete="username"
+        required
+      >
 
-            <div class="password-box">
-                <input
-                    type="password"
-                    id="password"
-                    placeholder="Enter your password"
-                    required
-                >
+      <label for="password">
+        Password
+      </label>
 
-                <button
-                    type="button"
-                    class="show-password"
-                    onclick="togglePassword()"
-                >
-                    Show
-                </button>
-            </div>
-        </div>
+      <input
+        type="password"
+        id="password"
+        placeholder="Enter your password"
+        autocomplete="current-password"
+        required
+      >
 
-        <a href="#" class="forgot" onclick="forgotPassword(event)">
-            Forgot Password?
-        </a>
-
-        <button type="submit" class="login-btn">
-            Sign In
-        </button>
+      <button type="submit" id="loginButton">
+        Login
+      </button>
 
     </form>
 
+    <div class="message" id="message"></div>
+
     <div class="register">
-        Don't have an account?
-        <a href="register.html">Create Account</a>
+      Don't have an account?
+      <a href="register.html">Create Account</a>
     </div>
 
-    <div class="security">
-        <strong>Secure Access</strong><br>
-        Keep your login details private. Fortiva Capital will never ask
-        you to share your password with another person.
-    </div>
+  </div>
 
-    <div class="footer">
-        © 2026 Fortiva Capital. All rights reserved.
-    </div>
+  <script>
 
-</div>
+    const BACKEND_URL =
+      "https://fortiva-backend.onrender.com";
 
-<script>
-    const API_URL = "https://fortiva-backend-hvqy.onrender.com";
+    const loginForm = document.getElementById("loginForm");
+    const loginButton = document.getElementById("loginButton");
+    const message = document.getElementById("message");
 
-    function togglePassword() {
-        const password = document.getElementById("password");
-        const button = document.querySelector(".show-password");
+    loginForm.addEventListener("submit", async function(event) {
 
-        if (password.type === "password") {
-            password.type = "text";
-            button.textContent = "Hide";
-        } else {
-            password.type = "password";
-            button.textContent = "Show";
+      event.preventDefault();
+
+      const identifier =
+        document.getElementById("identifier").value.trim();
+
+      const password =
+        document.getElementById("password").value;
+
+      message.style.display = "none";
+      message.textContent = "";
+
+      loginButton.disabled = true;
+      loginButton.textContent = "Logging in...";
+
+      try {
+
+        const response = await fetch(
+          `${BACKEND_URL}/api/login`,
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+              identifier: identifier,
+              password: password
+            })
+          }
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(
+            data.message || "Login failed"
+          );
         }
-    }
 
-    function forgotPassword(event) {
-        event.preventDefault();
-        alert("Password recovery is not available yet.");
-    }
+        // Save login information
+        localStorage.setItem(
+          "fortivaToken",
+          data.token
+        );
 
-    document.getElementById("loginForm").addEventListener("submit", async function(event) {
-        event.preventDefault();
+        localStorage.setItem(
+          "fortivaUser",
+          JSON.stringify(data.user)
+        );
 
-        const phone = document.getElementById("phone").value.trim();
-        const password = document.getElementById("password").value;
-        const button = document.querySelector(".login-btn");
+        message.style.display = "block";
+        message.style.color = "#006b3f";
+        message.textContent = "Login successful.";
 
-        button.disabled = true;
-        button.textContent = "Signing In...";
+        // Go to dashboard
+        setTimeout(() => {
+          window.location.href = "dashboard.html";
+        }, 500);
 
-        try {
-            const response = await fetch(`${API_URL}/api/login`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    phone: phone,
-                    password: password
-                })
-            });
+      } catch (error) {
 
-            const data = await response.json();
+        console.error("Login error:", error);
 
-            if (!response.ok) {
-                throw new Error(data.message || "Login failed.");
-            }
+        message.style.display = "block";
+        message.style.color = "#d00000";
+        message.textContent =
+          error.message ||
+          "Unable to connect to the login server.";
 
-            // Save the authentication token
-            localStorage.setItem("fortivaToken", data.token);
+      } finally {
 
-            // Save the logged-in user's information
-            localStorage.setItem("fortivaUser", JSON.stringify(data.user));
+        loginButton.disabled = false;
+        loginButton.textContent = "Login";
 
-            // Go to dashboard
-            window.location.href = "dashboard.html";
+      }
 
-        } catch (error) {
-            console.error("Login error:", error);
-
-            alert(error.message || "Unable to connect to the server.");
-
-            button.disabled = false;
-            button.textContent = "Sign In";
-        }
     });
-</script>
+
+  </script>
 
 </body>
 </html>
