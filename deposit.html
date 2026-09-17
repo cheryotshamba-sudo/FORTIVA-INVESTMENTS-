@@ -3,27 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <title>Fortiva Capital - Deposit</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
     body {
+      margin: 0;
       font-family: Arial, sans-serif;
       background: #071426;
       color: white;
-      min-height: 100vh;
     }
 
     .topbar {
       height: 78px;
       background: #10233d;
-      border-bottom: 1px solid #1c3a61;
       display: flex;
       align-items: center;
       padding: 0 20px;
@@ -42,378 +34,106 @@
     }
 
     .main {
+      padding: 30px 20px;
       max-width: 600px;
       margin: auto;
-      padding: 30px 20px;
     }
 
     .card {
       background: #10233d;
-      border: 1px solid #1c3c68;
-      border-radius: 22px;
-      padding: 28px 22px;
-    }
-
-    h1 {
-      font-size: 27px;
-      margin-bottom: 10px;
-    }
-
-    .description {
-      color: #a7b5c9;
-      line-height: 1.5;
-      margin-bottom: 30px;
-    }
-
-    label {
-      display: block;
-      color: #cbd6e5;
-      font-weight: bold;
-      margin-bottom: 9px;
+      padding: 25px;
+      border-radius: 20px;
     }
 
     input,
     select {
       width: 100%;
       height: 52px;
-      border: 1px solid #31537e;
-      border-radius: 9px;
+      margin: 10px 0 20px;
+      padding: 0 12px;
+      box-sizing: border-box;
       background: #091a2f;
       color: white;
-      padding: 0 14px;
+      border: 1px solid #31537e;
+      border-radius: 8px;
       font-size: 16px;
-      margin-bottom: 20px;
-      outline: none;
     }
 
-    input:focus,
-    select:focus {
-      border-color: #4388f5;
-    }
-
-    .button {
+    button {
       width: 100%;
       height: 55px;
-      border: none;
-      border-radius: 10px;
       background: #2e68e8;
       color: white;
+      border: none;
+      border-radius: 10px;
       font-size: 17px;
       font-weight: bold;
-      cursor: pointer;
     }
 
-    .button:active {
-      transform: scale(0.98);
-    }
-
-    .button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-    }
-
-    .message {
-      display: none;
-      margin-top: 18px;
-      padding: 14px;
-      border-radius: 10px;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .message.success {
-      display: block;
-      background: #0b2a20;
-      border: 1px solid #1d7055;
-      color: #9ce5c9;
-    }
-
-    .message.error {
-      display: block;
-      background: #35151a;
-      border: 1px solid #8d3540;
-      color: #ffb5bd;
-    }
-
-    .notice {
+    #result {
       margin-top: 20px;
       padding: 15px;
       border-radius: 10px;
-      background: #0b1d33;
-      border: 1px solid #24476e;
-      color: #aebed3;
-      font-size: 14px;
-      line-height: 1.5;
+      background: #0b2a20;
+      color: #9ce5c9;
+      display: none;
     }
   </style>
 </head>
 
 <body>
 
-  <header class="topbar">
+  <div class="topbar">
     <a class="back" href="dashboard.html">‹</a>
     <div class="title">Deposit Funds</div>
-  </header>
+  </div>
 
-  <main class="main">
+  <div class="main">
 
     <div class="card">
 
       <h1>Deposit Funds</h1>
 
-      <p class="description">
-        Enter the amount you want to deposit and use your M-Pesa
-        phone number to make the payment.
-      </p>
+      <p>Enter your deposit details.</p>
 
-      <label for="amount">Amount (KES)</label>
+      <label>Amount (KES)</label>
 
       <input
-        type="number"
         id="amount"
+        type="number"
         placeholder="Enter amount"
-        min="1"
-        inputmode="numeric"
       >
 
-      <label for="method">Payment Method</label>
-
-      <select id="method">
-        <option value="mpesa">M-Pesa</option>
-      </select>
-
-      <label for="phone">M-Pesa Phone Number</label>
+      <label>M-Pesa Phone Number</label>
 
       <input
-        type="tel"
         id="phone"
+        type="tel"
         placeholder="07XXXXXXXX"
-        inputmode="tel"
       >
 
       <button
         type="button"
-        class="button"
-        id="continueBtn"
-        onclick="depositButtonClicked()">
+        onclick="testButton()">
         Deposit Funds
       </button>
 
-      <div id="message" class="message"></div>
-
-      <div class="notice">
-        Your payment is processed securely through M-Pesa.
-        Your account balance is updated only after the payment
-        has been confirmed.
+      <div id="result">
+        BUTTON IS WORKING
       </div>
 
     </div>
 
-  </main>
+  </div>
 
   <script>
 
-    const BACKEND_URL =
-      "https://fortiva-backend-hvqy.onrender.com";
+    function testButton() {
 
+      document.getElementById("result").style.display = "block";
 
-    function showMessage(text, type) {
-
-      const message =
-        document.getElementById("message");
-
-      message.textContent = text;
-
-      message.className =
-        "message " + type;
-    }
-
-
-    function normalizePhone(phone) {
-
-      phone =
-        phone.replace(/\s+/g, "");
-
-      if (phone.startsWith("+254")) {
-        return phone.substring(1);
-      }
-
-      if (phone.startsWith("07")) {
-        return "254" + phone.substring(1);
-      }
-
-      if (phone.startsWith("01")) {
-        return "254" + phone.substring(1);
-      }
-
-      if (phone.startsWith("254")) {
-        return phone;
-      }
-
-      return phone;
-    }
-
-
-    async function depositButtonClicked() {
-
-      const button =
-        document.getElementById("continueBtn");
-
-
-      const amount =
-        document.getElementById("amount")
-          .value
-          .trim();
-
-
-      const method =
-        document.getElementById("method")
-          .value;
-
-
-      const enteredPhone =
-        document.getElementById("phone")
-          .value
-          .trim();
-
-
-      if (!amount || Number(amount) <= 0) {
-
-        showMessage(
-          "Please enter a valid deposit amount.",
-          "error"
-        );
-
-        return;
-      }
-
-
-      if (!enteredPhone) {
-
-        showMessage(
-          "Please enter your M-Pesa phone number.",
-          "error"
-        );
-
-        return;
-      }
-
-
-      const phone =
-        normalizePhone(enteredPhone);
-
-
-      if (!/^254(7|1)\d{8}$/.test(phone)) {
-
-        showMessage(
-          "Please enter a valid Kenyan M-Pesa phone number.",
-          "error"
-        );
-
-        return;
-      }
-
-
-      const token =
-        localStorage.getItem("token") ||
-        localStorage.getItem("fortivaToken");
-
-
-      if (!token) {
-
-        showMessage(
-          "Your login session has expired. Please log in again.",
-          "error"
-        );
-
-        return;
-      }
-
-
-      button.disabled = true;
-
-      button.textContent =
-        "Initiating payment...";
-
-
-      try {
-
-        const response =
-          await fetch(
-            BACKEND_URL + "/api/deposit",
-            {
-              method: "POST",
-
-              headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Bearer " + token
-              },
-
-              body: JSON.stringify({
-                amount: Number(amount),
-                method: method,
-                phone: phone
-              })
-            }
-          );
-
-
-        const text =
-          await response.text();
-
-
-        let data = {};
-
-        try {
-          data = JSON.parse(text);
-        } catch {
-          data = {
-            message: text
-          };
-        }
-
-
-        if (!response.ok) {
-
-          throw new Error(
-            data.message ||
-            data.error ||
-            "Payment initiation failed."
-          );
-
-        }
-
-
-        showMessage(
-          data.message ||
-          "Payment request sent. Please check your phone.",
-          "success"
-        );
-
-
-      } catch (error) {
-
-        console.error(
-          "Deposit error:",
-          error
-        );
-
-
-        showMessage(
-          error.message ||
-          "Unable to connect to the payment server.",
-          "error"
-        );
-
-
-      } finally {
-
-        button.disabled = false;
-
-        button.textContent =
-          "Deposit Funds";
-
-      }
+      document.getElementById("result").textContent =
+        "BUTTON IS WORKING";
 
     }
 
